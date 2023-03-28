@@ -1,6 +1,6 @@
 <template>
-  <v-app app>
-    <v-app-bar flat style="z-index: 0" class="px-lg-16 py-2 px-2" app>
+  <v-app style="height: 6rem;">
+    <v-app-bar flat style="z-index: 0; position: relative;" class="px-lg-16 py-2 px-2">
       <v-app-bar-nav-icon
         @click="drawer = true"
         class="d-flex d-sm-none"
@@ -16,6 +16,7 @@
         <span class="font-weight-medium text-h5">MyDividend</span>
       </b-btn>
       <v-spacer></v-spacer>
+
       <div @click="home" class="d-none d-sm-flex align-center">
         <router-link class="mr-8" to="/dashboard" active-class="active"
           >Dashboard</router-link
@@ -24,10 +25,11 @@
           >Upcoming Dividends</router-link
         >
       </div>
+
       <div>
         <v-menu transition="slide-y-transition">
           <template v-slot:activator="{ props }">
-            <div class="d-flex align-center">
+            <div class="d-none d-sm-flex align-center">
             <v-btn v-bind="props">
               <v-icon size="x-large">mdi-account-outline</v-icon>
             </v-btn>
