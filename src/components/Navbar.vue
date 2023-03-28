@@ -1,25 +1,112 @@
 <template>
-<v-app>
-   <v-app-bar app dark flat class="px-12">
-      <v-btn >
-        <v-icon color="yellow" left class="mr-2">fas fa-signature</v-icon> MyDividend
-      </v-btn>
-      
-  
+  <v-app app>
+    <v-app-bar flat style="z-index: 0" class="px-lg-16 py-2 px-2" app>
+      <v-app-bar-nav-icon
+        @click="drawer = true"
+        class="d-flex d-sm-none"
+      ></v-app-bar-nav-icon>
+      <b-btn
+        @click="this.$router.push('/')"
+        v-ripple="false"
+        variant="plain"
+        style="cursor: pointer"
+        class="d-inline-flex align-center d-none d-xs-flex ml-lg-0 ml-14"
+      >
+        <v-img src="../assets/brand-logo.svg" width="75" height="45"></v-img>
+        <span class="font-weight-medium text-h5">MyDividend</span>
+      </b-btn>
       <v-spacer></v-spacer>
-      <v-btn text @click="scroll('home')" class="text-yellow">Dashboard</v-btn>
-      <v-btn text @click="scroll('about')"  >Upcoming Dividends</v-btn>
+      <div @click="home" class="d-none d-sm-flex align-center">
+        <router-link class="mr-8" to="/dashboard" active-class="active"
+          >Dashboard</router-link
+        >
+        <router-link class="mr-8" to="/upcoming-dividends" active-class="active"
+          >Upcoming Dividends</router-link
+        >
+      </div>
+      <div>
+        <v-menu transition="slide-y-transition">
+          <template v-slot:activator="{ props }">
+            <div class="d-flex align-center">
+            <v-btn v-bind="props">
+              <v-icon size="x-large">mdi-account-outline</v-icon>
+            </v-btn>
+            <span>Arif Wibawa</span>
+          </div>
+          </template>
+          <v-list>
+            <v-list-item class="px-0">
+              <v-btn variant="text" @click="">
+                <v-icon>mdi-cog-outline</v-icon
+                ><span class="ml-2">Settings</span>
+              </v-btn>
+            </v-list-item>
+            <v-list-item class="px-0">
+              <v-btn color="red" variant="text" @click="">
+                <v-icon>mdi-logout</v-icon><span class="ml-2">Logout</span>
+              </v-btn>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </v-app-bar>
-</v-app>
+    <!-- Add a navigation bar -->
+    <v-navigation-drawer
+      style="top: 0; height: 100%"
+      v-model="drawer"
+      absolute
+      temporary
+    >
+      <div class="d-flex align-center justify-center py-6">
+        <v-btn icon>
+          <v-icon>mdi-account-outline</v-icon>
+        </v-btn>
+        <span class="ml-4">Arif Wibawa</span>
+      </div>
+      <v-divider></v-divider>
+      <div class="d-flex flex-column px-3 mt-6">
+        <router-link class="mr-8 mb-2" to="/dashboard" active-class="active"
+          ><v-icon>mdi-home</v-icon
+          ><span class="ml-4">Dashboard</span></router-link
+        >
+        <router-link class="mr-8" to="/upcoming-dividends" active-class="active"
+          ><v-icon>mdi-cash-multiple</v-icon
+          ><span class="ml-4">Upcoming Dividends</span></router-link
+        >
+      </div>
+    </v-navigation-drawer>
+    <!-- Navigation bar ends -->
+  </v-app>
 </template>
 
 <script>
- export default {
-    methods: {
-      scroll(refName) {
-        const element = document.getElementById(refName);
-        element.scrollIntoView({ behavior: "smooth" });
-      },
-    },
-  };
+export default {
+  data() {
+    return {
+      drawer: false,
+    };
+  },
+  methods: {},
+  computed: {},
+  mounted() {},
+};
 </script>
+
+<style scoped>
+.active {
+  color: #377dff;
+}
+
+a {
+  text-decoration: none;
+  color: #68859c;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.v-app-bar {
+  border-bottom: 1px solid rgba(41, 61, 77, 0.3);
+}
+</style>
