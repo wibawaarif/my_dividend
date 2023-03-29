@@ -309,6 +309,7 @@
       if (type === 'new-account') {
         this.accountName = '';
         this.selectedCurrency = '';
+        this.tab = this.tab - 1;
         this.addAccountDialog = false;
       } 
 
@@ -324,13 +325,6 @@
    },
    computed: {},
    mounted() {},
-   watch: { 
-    tab(newTab, oldTab) {
-      if (this.addAccountDialog) {
-        this.tab = oldTab;
-      }
-    }
-   }, 
    created() {
     document.title = 'Dashboard | MyDividend'
   },
