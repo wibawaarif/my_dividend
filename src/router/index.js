@@ -4,22 +4,22 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: () => import('@/views/Home.vue')
   },
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "dashboard",
     component: () => import('@/views/Dashboard.vue')
   },
   {
     path: "/login",
-    name: "Login",
+    name: "login",
     component: () => import('@/views/Login.vue')
   },
   {
     path: "/register",
-    name: "Register",
+    name: "register",
     component: () => import('@/views/Register.vue')
   },
 ]
@@ -29,11 +29,5 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.name === 'Home') {
-    next('Dashboard')
-  }
-  next()
-})
 
 export default router
