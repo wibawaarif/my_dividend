@@ -29,4 +29,11 @@ const router = createRouter({
   routes,
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Home') {
+    next('Dashboard')
+  }
+  next()
+})
+
 export default router

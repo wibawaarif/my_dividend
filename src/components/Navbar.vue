@@ -30,8 +30,7 @@
         <v-menu transition="slide-y-transition">
           <template v-slot:activator="{ props }">
             <div class="d-none d-sm-flex align-center">
-            <v-btn v-bind="props">
-              <v-icon size="x-large">mdi-account-outline</v-icon>
+            <v-btn icon="mdi-account-outline" v-bind="props">
             </v-btn>
             <span>Arif Wibawa</span>
           </div>
