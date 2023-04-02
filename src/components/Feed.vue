@@ -63,6 +63,7 @@
               <v-col cols="12">
                 <span>Sell Date</span>
                 <VueDatePicker
+                  :enable-time-picker="false"
                   class="mt-2"
                   input-class-name="dp-custom-input"
                   placeholder="Enter Sell Date..."
