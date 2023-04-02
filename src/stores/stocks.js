@@ -16,7 +16,7 @@ export const useStockStore = defineStore("stock",{
   actions: {
     async fetchStocks() {
       try {
-        const data = await axios.get(`https://script.googleusercontent.com/macros/echo?user_content_key=${process.env.VITE_HOLDING_KEY}&lib=${import.meta.env.VITE_HOLDING_LIB}`)
+        const data = await axios.get(`https://script.googleusercontent.com/macros/echo?user_content_key=${import.meta.env.VITE_HOLDING_KEY}&lib=${import.meta.env.VITE_HOLDING_LIB}`)
           this.stocks = data.data.data.securities.sort()
         }
         catch (error) {
