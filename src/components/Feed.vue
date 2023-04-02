@@ -1,22 +1,36 @@
 <template>
   <v-app class="px-lg-16 px-2">
-    <v-dialog v-model="addHoldingDialog" width="620">
+    <q-dialog v-model="addHoldingDialog" width="620">
       <v-card>
         <v-card-title class="d-flex align-center justify-space-between pt-4">
-          <span class="text-h5 ml-6">New Holding</span>
+          <span class="text-h5 ml-4">New Holding</span>
           <v-btn flat icon dark class="mr-2" @click="clearFields('new-holding')">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-form ref="form" lazy-validation>
             <v-row>
               <v-col cols="12">
                 <span>Select Stock Symbol <span class="text-red font-weight-bold">*</span></span>
-                <v-autocomplete hide-details class="mt-2" bg-color="white" label="Stock Symbol" v-model="selectedStock"
-                  :items="getStocks">
-                </v-autocomplete>
+                <q-select
+        class="mt-2"
+        v-model="selectedStock"
+        outlined
+        label="e.g: AAPL"
+        bg-color="white"
+        use-input
+        :options="stockOptions"
+        @filter="filterFn"
+      >
+        <template v-slot:no-option>
+          <q-item>
+            <q-item-section class="text-grey">
+              No results
+            </q-item-section>
+          </q-item>
+        </template>
+      </q-select>
               </v-col>
               <v-col cols="12">
                 <span>Buy Date <span class="text-red font-weight-bold">*</span></span>
@@ -34,18 +48,17 @@
                   v-model="quantity" hint="Enter quantity"></v-text-field>
               </v-col>
             </v-row>
-          </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions class="mb-2">
           <v-spacer></v-spacer>
           <v-btn :disabled="validateHolding" style="background-color: #377DFF; color: white" @click="addStock()"
-            class="py-6 d-flex align-center mr-8 mb-2">
+            class="py-6 d-flex align-center mr-6 mb-2">
             <span>+ Add Holding</span>
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </q-dialog>
 
     <v-dialog v-model="addAccountDialog" width="620">
       <v-card>
@@ -179,6 +192,7 @@ const store = useStockStore();
 export default {
   data() {
     return {
+      stockOptions: '',
       tab: null,
       notification: false,
       options: {
@@ -269,6 +283,12 @@ export default {
         return true;
       }
     },
+    filterFn (val, update, abort) {
+        update(() => {
+          const needle = val.toLowerCase()
+          this.stockOptions = this.getStocks.filter(v => v.toLowerCase().indexOf(needle) > -1)
+        })
+      },
     clearFields(type) {
       if (type === 'new-account') {
         this.accountName = '';
@@ -311,7 +331,10 @@ export default {
     }
   },
   mounted() {
-    store.fetchStocks();
+    store.fetchStocks()
+      .then(() => {
+        this.stockOptions = store.getStocks
+      })
   },
   created() {
     document.title = 'Dashboard | MyDividend'

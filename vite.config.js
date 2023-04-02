@@ -20,7 +20,7 @@ export default defineConfig({
       },
     }),
   ],
-  define: { __APP_ENV__: process.env.VITE_HOLDING_KEY },
+  define: { 'process.env': {} },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

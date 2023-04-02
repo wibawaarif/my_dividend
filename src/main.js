@@ -13,6 +13,14 @@ import { createPinia } from 'pinia';
 // Composables
 import { createApp } from 'vue';
 
+import { Quasar } from 'quasar';
+
+// Import icon libraries
+import '@quasar/extras/material-icons/material-icons.css';
+
+// Import Quasar css
+import 'quasar/src/css/index.sass';
+
 // datepicker
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
@@ -27,6 +35,8 @@ const pinia = createPinia()
 const app = createApp(App)
 
 app.component('VueDatePicker', VueDatePicker);
+
+app.use(Quasar);
 app.use(pinia);
 app.use(VueApexCharts);
 registerPlugins(app)
