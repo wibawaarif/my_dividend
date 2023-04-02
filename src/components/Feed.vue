@@ -1,6 +1,6 @@
 <template>
   <v-app class="px-lg-16 px-2">
-    <q-dialog v-model="addHoldingDialog" width="620">
+    <q-dialog persistent v-model="addHoldingDialog" width="620">
       <v-card>
         <v-card-title class="d-flex align-center justify-space-between pt-4">
           <span class="text-h5 ml-4">New Holding</span>
@@ -13,6 +13,7 @@
             <v-row>
               <v-col cols="12">
                 <span>Select Stock Symbol <span class="text-red font-weight-bold">*</span></span>
+                {{ getStocks.length }}
                 <q-select
         class="mt-2"
         v-model="selectedStock"
@@ -25,8 +26,11 @@
       >
         <template v-slot:no-option>
           <q-item>
-            <q-item-section class="text-grey">
+            <q-item-section v-if="getStocks.length > 0" class="text-grey">
               No results
+            </q-item-section>
+            <q-item-section v-else class="text-grey">
+              Please Wait...
             </q-item-section>
           </q-item>
         </template>
@@ -331,6 +335,7 @@ export default {
     }
   },
   mounted() {
+
     store.fetchStocks()
       .then(() => {
         this.stockOptions = store.getStocks
