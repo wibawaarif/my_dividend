@@ -1,6 +1,7 @@
 <template>
   <v-app class="px-lg-16 px-2">
-    <q-dialog persistent v-model="addHoldingDialog" width="620">
+    {{ addHoldingDialog }}
+    <q-dialog @hide="clearFields('new-holding')" v-model="addHoldingDialog" width="620">
       <v-card>
         <v-card-title class="d-flex align-center justify-space-between pt-4">
           <span class="text-h5 ml-4">New Holding</span>
@@ -26,7 +27,6 @@
                   class="mt-2"
                   v-model="selectedStock"
                   outlined
-                  label="e.g: AAPL"
                   bg-color="white"
                   use-input
                   :options="stockOptions"
@@ -82,7 +82,6 @@
                   class="mt-2"
                   @keypress="filter(event)"
                   bg-color="white"
-                  label="Enter Quantity..."
                   v-model="quantity"
                 ></v-text-field>
               </v-col>
