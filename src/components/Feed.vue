@@ -57,7 +57,6 @@
                   class="mt-2"
                   input-class-name="dp-custom-input"
                   placeholder="Enter Buy Date..."
-                  :teleport="true"
                   auto-apply
                   v-model="buyDate"
                 ></VueDatePicker>
@@ -69,7 +68,7 @@
                   class="mt-2"
                   input-class-name="dp-custom-input"
                   auto-apply
-                  :teleport="true"
+                  teleport-center
                   placeholder="Enter Sell Date..."
                   v-model="sellDate"
                 ></VueDatePicker>
