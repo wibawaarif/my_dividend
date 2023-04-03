@@ -22,7 +22,6 @@
                   >Select Stock Symbol
                   <span class="text-red font-weight-bold">*</span></span
                 >
-                {{ selectedStock }}
                 <q-select
                   class="mt-2"
                   v-model="selectedStock"
@@ -30,16 +29,10 @@
                   bg-color="white"
                   color="indigo"
                   use-input
+                  :loading="loadingStockSymbol"
                   :options="stockOptions"
                   @filter="filterFn"
                 >
-                  <template v-if="getStocks.length === 0" v-slot:no-option>
-                    <q-item>
-                      <q-item-section class="text-grey">
-                        Please Wait...
-                      </q-item-section>
-                    </q-item>
-                  </template>
                 </q-select>
               </v-col>
               <v-col cols="12">
@@ -397,6 +390,13 @@ export default {
     getStocks() {
       return store.getStocks;
     },
+    loadingStockSymbol() {
+      if (this.getStocks.length === 0) {
+        return true
+      } else {
+        return false
+      }
+    },  
     validateHolding() {
       if (this.selectedStock === "") {
         return true;
