@@ -22,24 +22,20 @@
                   >Select Stock Symbol
                   <span class="text-red font-weight-bold">*</span></span
                 >
+                {{ selectedStock }}
                 <q-select
                   class="mt-2"
                   v-model="selectedStock"
                   outlined
                   bg-color="white"
+                  color="indigo"
                   use-input
                   :options="stockOptions"
                   @filter="filterFn"
                 >
-                  <template v-slot:no-option>
+                  <template v-if="getStocks.length === 0" v-slot:no-option>
                     <q-item>
-                      <q-item-section
-                        v-if="getStocks.length > 0"
-                        class="text-grey"
-                      >
-                        No results
-                      </q-item-section>
-                      <q-item-section v-else class="text-grey">
+                      <q-item-section class="text-grey">
                         Please Wait...
                       </q-item-section>
                     </q-item>
@@ -77,12 +73,7 @@
                   >Quantity
                   <span class="text-red font-weight-bold">*</span></span
                 >
-                <v-text-field
-                  class="mt-2"
-                  @keypress="filter(event)"
-                  bg-color="white"
-                  v-model="quantity"
-                ></v-text-field>
+                <q-input class="mt-2" outlined color="indigo" type="number" v-model="quantity" />
               </v-col>
             </v-row>
           </v-container>
@@ -373,16 +364,6 @@ export default {
     };
   },
   methods: {
-    filter: function (evt) {
-      evt = evt ? evt : window.event;
-      let expect = evt.target.value.toString() + evt.key.toString();
-
-      if (!/^[-+]?[0-9]*\.?[0-9]*$/.test(expect)) {
-        evt.preventDefault();
-      } else {
-        return true;
-      }
-    },
     filterFn(val, update, abort) {
       update(() => {
         const needle = val.toLowerCase();
@@ -461,5 +442,6 @@ export default {
   border-top: 1px solid grey;
   border-left: 1px solid grey;
   border-right: 1px solid grey;
-}
+} 
+
 </style>
