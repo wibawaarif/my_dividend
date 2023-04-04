@@ -28,6 +28,8 @@
                   outlined
                   bg-color="white"
                   color="indigo"
+                  clearable
+                  input-debounce="0"
                   use-input
                   :loading="loadingStockSymbol"
                   :options="stockOptions"
