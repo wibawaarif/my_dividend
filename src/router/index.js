@@ -13,6 +13,11 @@ const routes = [
     component: () => import('@/views/Dashboard.vue')
   },
   {
+    path: "/dashboard/stock/:symbol",
+    name: "stockDetail",
+    component: () => import('@/views/StockDetail.vue')
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import('@/views/Login.vue')
