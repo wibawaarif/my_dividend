@@ -3,8 +3,7 @@
   <Navbar type="homepage" />
 
   <v-app style="padding-left: 100px; padding-right: 100px;">
-
-    <v-row class="mt-16">
+    <v-row class="mt-16 mb-16">
       <v-col style="height: 550px;" class="d-flex flex-column justify-between">
 
         <span style="color: rgba(13, 37, 53, 0.7); font-weight: 600; font-size: 24px;">Lorem ipsum dolor sit amet,</span>
@@ -18,14 +17,14 @@ primis in faucibus. Phasellus et ex rutrum</span>
 
           <v-btn
             style="background-color: #377dff; color: white"
-            @click="addStock()"
+            to="/register"
             class="py-6 d-flex align-center mr-6 mb-2"
           >
             <span>Get Started ></span>
           </v-btn>
 
           <v-btn
-            @click="addStock()"
+            @click="scrollPage"
             color="blue"
             variant="outlined"
             class="py-6 d-flex align-center mr-6 mb-2"
@@ -46,13 +45,122 @@ primis in faucibus. Phasellus et ex rutrum</span>
 
     </v-row>
 
+    <v-divider style="margin-top: 7rem;" />
+
+    <div style="height: 100vh;" class="text-center">
+
+    <v-row class="d-flex justify-center mt-6">
+
+      <div class="text-center w-50 mt-4">
+
+      <span style="color: #377DFF; font-size: 48px; font-weight: 600;">Stock Screener</span>
+
+      <q-select :loading="loadingOnClick && loadingStockSymbol" @update:model-value="selectedStockDetail" @focus="testing" use-input standout class="mt-8" outlined bottom-slots v-model="selectedStock" :options="stockOptions" @filter="filterFn">
+
+        <template v-slot:append>
+          <q-icon name="search" @click.stop.prevent />
+        </template>
+      </q-select>
+
+    </div>
+
+    </v-row>
+
+    <div class="my-12">
+    <span style="font-size: 36px; color: rgba(13, 37, 53, 0.7);">A Simple Tool  to See All Your <br/>
+Dividends in One Place</span>
+</div>
+
+      <v-row>
+
+        <v-col class="d-flex flex-column align-center">
+          <v-img class="mt-2" :width="220" src="../assets/hero-1.png" />
+          <span class="mt-10" style="font-weight: 500; font-size: 20px; text-decoration: underline;">Simple to Use</span>
+          <span style="font-size: 18px; color: #7E8E99;" class="mt-2">Get started with a free account. Add<br/> your stocks manually or<br/>
+download them from your broker.<br/> Receive alerts, see payments,<br/> 
+project future growth.</span>
+        </v-col>
+
+
+        <v-col class="d-flex flex-column align-center">
+          <div>
+          <v-img class="mt-2" :width="220" src="../assets/hero-2.png" />
+        </div>
+          <span class="mt-10" style="font-weight: 500; font-size: 20px; text-decoration: underline;">Link Your Accounts</span>
+          <span style="font-size: 18px; color: #7E8E99;" class="mt-2">Effortlessly connect to thousands of<br/> banks and brokerage firms using Plaid.<br/> The easiest way to add, track, and<br /> analyze your dividends stocks.</span>
+          
+</v-col>
+
+
+
+      </v-row>
+
+
+
+  </div>
+
   </v-app>
 
 </v-container>
  </template>
  
- <script setup>
+<script>
    import Navbar from '@/components/Navbar.vue'
+   import { useStockStore } from "../stores/stocks";
+  const store = useStockStore();
 
+   export default {
+    components: {
+    Navbar
+  },
+  data() {
+    return {
+      selectedStock: '',
+      stocks: ["test", "test123"],
+      stockOptions: "",
+      loadingOnClick: false,
+
+   }
+  },
+  methods: {
+    scrollPage() {
+      window.scrollTo({top: 960, behavior: 'smooth'});
+    },
+    testing() {
+      this.loadingOnClick = true;
+    },  
+    selectedStockDetail(value) {
+      this.$router.push({ name: 'stockDetail', params: { symbol: value } })
+    },
+    filterFn(val, update, abort) {
+      update(() => {
+        const needle = val.toLowerCase();
+        this.stockOptions = this.getStocks.filter(
+          (v) => v.toLowerCase().indexOf(needle) > -1
+        );
+      });
+    },
+  },
+  computed: {
+    getStocks() {
+      return store.getStocks;
+    },
+    loadingStockSymbol() {
+      if (this.getStocks.length === 0) {
+        return true
+      } else {
+        return false
+      }
+    }, 
+  },
+  mounted() {
+    store.fetchStocks().then(() => {
+      this.stockOptions = store.getStocks;
+    });
+  },
+  created() {
+    document.title = "Home | MyDividend";
+  }
+}
  </script>
  

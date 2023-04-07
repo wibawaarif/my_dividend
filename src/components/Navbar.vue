@@ -63,7 +63,7 @@
         >
 
         <v-btn
-            style="background-color: #377DFF; color: white; width: 124px; height: 48px;"
+            style="background-color: #377DFF; color: white; width: 124px; height: 40px;"
             @click="addStock()"
             class="d-flex align-center"
           >

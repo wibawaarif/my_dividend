@@ -13,7 +13,7 @@ const routes = [
     component: () => import('@/views/Dashboard.vue')
   },
   {
-    path: "/dashboard/stock/:symbol",
+    path: "/stock/:symbol",
     name: "stockDetail",
     component: () => import('@/views/StockDetail.vue')
   },

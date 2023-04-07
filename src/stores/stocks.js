@@ -23,6 +23,16 @@ export const useStockStore = defineStore("stock",{
           alert(error)
           console.log(error)
       }
+    },
+    async fetchStockDetail(symbol) {
+      try {
+        const data = await axios.get(`https://script.google.com/macros/s/AKfycbyGNt9Dyo6mdXQwLZQqmNMsBzirm5Wp-z6MhjQ9NpFo05tKC7TZT9yPM2heUzHT8JsMGg/exec?symbol=${symbol}`)
+        return data.data
+        }
+        catch (error) {
+          alert(error)
+          console.log(error)
+      }
     }
   },
 })
