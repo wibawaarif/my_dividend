@@ -1,6 +1,6 @@
 <template>
   <v-container class="px-0 py-0" fluid>
-  <Navbar />
+  <Navbar type="dashboard" />
   <Feed />
 </v-container>
 </template>

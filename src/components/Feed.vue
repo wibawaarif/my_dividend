@@ -1,5 +1,5 @@
 <template>
-  <v-app class="px-lg-16 px-2">
+  <v-app style="padding-left: 100px; padding-right: 100px;">
     <q-dialog @hide="clearFields('new-holding')" v-model="addHoldingDialog" width="620">
       <v-card>
         <v-card-title class="d-flex align-center justify-space-between pt-4">

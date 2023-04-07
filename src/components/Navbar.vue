@@ -1,6 +1,6 @@
 <template>
   <v-app style="height: 6rem;">
-    <v-app-bar flat style="z-index: 0; position: relative;" class="px-lg-16 py-2 px-2">
+    <v-app-bar flat style="z-index: 0; position: relative; padding-left: 100px; padding-right: 100px;" class="py-2">
       <v-app-bar-nav-icon
         @click="drawer = true"
         class="d-flex d-sm-none"
@@ -17,7 +17,7 @@
       </b-btn>
       <v-spacer></v-spacer>
 
-      <div @click="home" class="d-none d-sm-flex align-center">
+      <div v-if="type === 'dashboard'" @click="home" class="d-none d-sm-flex align-center">
         <router-link class="mr-8" to="/dashboard" active-class="active"
           >Dashboard</router-link
         >
@@ -26,7 +26,7 @@
         >
       </div>
 
-      <div>
+      <div v-if="type === 'dashboard'">
         <v-menu transition="slide-y-transition">
           <template v-slot:activator="{ props }">
             <div class="d-none d-sm-flex align-center">
@@ -50,6 +50,28 @@
           </v-list>
         </v-menu>
       </div>
+
+      <div v-if="type === 'homepage'" class="d-none d-sm-flex justify-center align-center">
+        <router-link class="mr-8" to="/" active-class="active"
+          >Home</router-link
+        >
+        <router-link class="mr-8" to="/pricing" active-class="active"
+          >Pricing</router-link
+        >
+        <router-link class="mr-8" to="/dividend-calculator" active-class="active"
+          >Dividend Calculator</router-link
+        >
+
+        <v-btn
+            style="background-color: #377DFF; color: white; width: 124px; height: 48px;"
+            @click="addStock()"
+            class="d-flex align-center"
+          >
+            <span style="text-transform: capitalize; font-weight: 700;">Dashboard</span>
+          </v-btn>
+
+      </div>
+
     </v-app-bar>
     <!-- Add a navigation bar -->
     <v-navigation-drawer
@@ -57,6 +79,7 @@
       v-model="drawer"
       absolute
       temporary
+      v-if="type === 'dashboard'"
     >
       <div class="d-flex align-center justify-center py-6">
         <v-btn icon>
@@ -82,6 +105,9 @@
 
 <script>
 export default {
+  props: {
+    type: String,
+  },
   data() {
     return {
       drawer: false,
