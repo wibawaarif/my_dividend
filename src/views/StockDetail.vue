@@ -1,8 +1,57 @@
 <template>
    <v-container class="px-0 py-0" fluid>
     <Navbar type="homepage" />
-   <h1>You're selecting stock : {{ $route.params.symbol }}</h1>
-   <span v-if="selectedStockDetail">{{ selectedStockDetail }}</span>
+    
+   <div style="padding-left: 100px; padding-right: 100px;">
+
+    <div class="d-flex justify-between mt-2">
+
+      <div class="d-flex flex-column">
+        <span style="font-size: 48px; font-weight: 500;">{{ $route.params.symbol }}</span>
+        <span style="color: rgba(0, 0, 0, 0.6); font-size: 20px; font-weight: 500;">NSE: {{ $route.params.symbol }}</span>
+      </div>
+
+      <div class="d-flex align-end">
+      <v-btn
+            style="background-color: #377DFF; color: white; width: 160px; height: 40px;"
+            to="/dashboard"
+            class="d-flex align-center py-6 mb-2"
+          >
+            <span style="text-transform: none; font-weight: 700;">Save to Portfolio</span>
+          </v-btn>
+        </div>
+
+    </div>
+
+    <v-divider class="mt-4 mb-4" />
+
+<div v-if="selectedStockDetail">
+    <q-table
+      row-key="index"
+      title="Dividend History"
+      :rows="selectedStockDetail"
+      no-data-label="Data Not Available"
+      :columns="columns"
+    />
+
+    <v-card v-if="selectedStockDetail.length > 0" width="500" class="my-10 mx-auto">
+      <div class="py-4 ml-5">
+        <span class="my-10 font-weight-medium">Ex Date</span>
+      </div>
+
+      <v-divider></v-divider>
+      <div>
+        <apexchart
+          width="500"
+          type="bar"
+          :options="optionsChart"
+          :series="seriesChart"
+        ></apexchart>
+      </div>
+    </v-card>
+
+    </div>
+
    <div v-else class="q-pa-md">
     <q-markup-table>
       <thead>
@@ -52,6 +101,8 @@
       </tbody>
     </q-markup-table>
   </div>
+
+</div>
  </v-container>
  </template>
  
@@ -66,17 +117,91 @@ export default {
 },
 data() {
  return {
+  options: {
+        chart: {
+          id: "Ex-date Chart",
+        },
+        xaxis: {
+          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+        },
+      },
   selectedStockDetail: null,
+  columns: [
+    {
+      name: 'index',
+      label: 'No',
+      field: 'index',
+      align: 'left',
+    },
+    {
+      name: 'currency',
+      label: 'Currency',
+      field: 'currency',
+      align: 'left',
+      sortable: true
+    },
+    {
+      name: 'amount',
+      label: 'Amount',
+      field: 'amount',
+      align: 'left',
+      sortable: true
+    },
+    {
+      name: 'exDate',
+      label: 'Ex Date',
+      field: 'exDate',
+      align: 'left',
+      sortable: true
+    },
+    {
+      name: 'purpose',
+      field: 'purpose',
+      label: 'Detail',
+      align: 'left',
+    }
+  ],
 }
 },
 methods: {
 },
 computed: {
+  optionsChart() {
+    const grabYear = this?.selectedStockDetail.map((x, index) => {
+      const dateParts = x.exDate.split("-");
+      const year = dateParts[0];
+      const month = dateParts[1];
+      const formattedDate = `${month}-${year}`;
 
+      return formattedDate;
+    })
+
+    const options =  {
+        chart: {
+          id: "vuechart-example",
+        },
+        xaxis: {
+          categories: grabYear,
+        },
+      }
+    return options;
+
+    },
+    seriesChart() {
+      const grabAmount = this?.selectedStockDetail.map((x, index) => x.amount)
+      const series = [
+        {
+          name: "amount",
+          data: grabAmount,
+        },
+      ]
+
+      return series;
+    } 
 },
 mounted() {
   store.fetchStockDetail(this.$route.params.symbol).then((data) => {
-      this.selectedStockDetail = data.data.history
+      this.selectedStockDetail = data
     });
 },
 created() {

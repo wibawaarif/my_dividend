@@ -27,7 +27,15 @@ export const useStockStore = defineStore("stock",{
     async fetchStockDetail(symbol) {
       try {
         const data = await axios.get(`https://script.google.com/macros/s/AKfycbyGNt9Dyo6mdXQwLZQqmNMsBzirm5Wp-z6MhjQ9NpFo05tKC7TZT9yPM2heUzHT8JsMGg/exec?symbol=${symbol}`)
-        return data.data
+        return data.data.data.history.map((x, index) => {
+          return {
+          amount: x.amount,
+          index: index + 1,
+          currency: x.currency,
+          purpose: x.purpose,
+          exDate: x.exDate,
+          }
+        })
         }
         catch (error) {
           alert(error)

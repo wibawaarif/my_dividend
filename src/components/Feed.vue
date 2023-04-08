@@ -23,6 +23,7 @@
                   <span class="text-red font-weight-bold">*</span></span
                 >
                 <q-select
+                  @focus="triggerLoading"
                   class="mt-2"
                   v-model="selectedStock"
                   outlined
@@ -31,7 +32,7 @@
                   clearable
                   input-debounce="0"
                   use-input
-                  :loading="loadingStockSymbol"
+                  :loading="loadingStockSymbol && loadingOnClick"
                   :options="stockOptions"
                   @filter="filterFn"
                 >
@@ -296,6 +297,7 @@ export default {
       addHoldingDialog: false,
       addAccountDialog: false,
       accountName: "",
+      loadingOnClick: false,
       selectedCurrency: "",
       selectedStock: "",
       shares: "",
@@ -332,30 +334,6 @@ export default {
         { title: "Annual Income", align: "end", key: "annualIncome" },
         { title: "Actions", align: "end", key: "actions", sortable: false },
       ],
-      desserts: [
-        {
-          ticker: "AAPL",
-          shares: 100,
-          price: 157,
-          change: 0.63,
-          averageCost: 154.4,
-          profitLoss: 120,
-          dividendYield: 0.21,
-          yieldOnCost: 0.6,
-          annualIncome: 184,
-        },
-        {
-          ticker: "BRK",
-          shares: 100,
-          price: 157,
-          change: 0.63,
-          averageCost: 154.4,
-          profitLoss: 120,
-          dividendYield: 0.21,
-          yieldOnCost: 0.6,
-          annualIncome: 184,
-        },
-      ],
     };
   },
   methods: {
@@ -366,6 +344,9 @@ export default {
           (v) => v.toLowerCase().indexOf(needle) > -1
         );
       });
+    },
+    triggerLoading() {
+      this.loadingOnClick = true;
     },
     clearFields(type) {
       if (type === "new-account") {

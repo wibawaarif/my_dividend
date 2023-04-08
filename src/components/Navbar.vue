@@ -62,12 +62,12 @@
           >Dividend Calculator</router-link
         >
 
-        <v-btn
-            style="background-color: #377DFF; color: white; width: 124px; height: 40px;"
-            @click="addStock()"
-            class="d-flex align-center"
+          <v-btn
+            style="background-color: #377dff; color: white"
+            class="d-flex align-center py-5"
+            to="/dashboard"
           >
-            <span style="text-transform: capitalize; font-weight: 700;">Dashboard</span>
+            <span style="text-transform: none;">Dashboard</span>
           </v-btn>
 
       </div>

@@ -18,7 +18,9 @@ primis in faucibus. Phasellus et ex rutrum</span>
           <v-btn
             style="background-color: #377dff; color: white"
             to="/register"
-            class="py-6 d-flex align-center mr-6 mb-2"
+            elevation="8"
+            size="x-large"
+            class="py-8 d-flex align-center mr-6 mb-2"
           >
             <span>Get Started ></span>
           </v-btn>
@@ -27,7 +29,8 @@ primis in faucibus. Phasellus et ex rutrum</span>
             @click="scrollPage"
             color="blue"
             variant="outlined"
-            class="py-6 d-flex align-center mr-6 mb-2"
+            size="x-large"
+            class="py-8 d-flex align-center mr-6 mb-2"
           >
             <span>Stock Screener</span>
           </v-btn>
@@ -55,7 +58,7 @@ primis in faucibus. Phasellus et ex rutrum</span>
 
       <span style="color: #377DFF; font-size: 48px; font-weight: 600;">Stock Screener</span>
 
-      <q-select :loading="loadingOnClick && loadingStockSymbol" @update:model-value="selectedStockDetail" @focus="testing" use-input standout class="mt-8" outlined bottom-slots v-model="selectedStock" :options="stockOptions" @filter="filterFn">
+      <q-select fill-input input-debounce="0" :loading="loadingOnClick && loadingStockSymbol" @update:model-value="selectedStockDetail" @focus="testing" use-input standout class="mt-8" outlined bottom-slots v-model="selectedStock" :options="stockOptions" @filter="filterFn">
 
         <template v-slot:append>
           <q-icon name="search" @click.stop.prevent />
