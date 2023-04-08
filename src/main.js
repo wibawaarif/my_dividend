@@ -13,6 +13,8 @@ import { createPinia } from 'pinia';
 // Composables
 import { createApp } from 'vue';
 
+import 'maz-ui/css/main.css';
+
 import { Quasar } from 'quasar';
 
 // Import icon libraries
