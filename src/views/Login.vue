@@ -21,33 +21,17 @@
         class="mt-6"
         style="border-radius: 20px"
         width="500"
-        height="700"
+        height="500"
       >
         <div class="d-flex h-100 flex-column align-center justify-center">
-          <span style="font-weight: 600; font-size: 26px;" class="mb-6">Create your account</span>
+          <span style="font-weight: 600; font-size: 26px;" class="mb-6">Sign In</span>
 
           <span
           class="mb-6"
             style="font-size: 18px; font-weight: 400; "
-            >Already have an account?
-            <router-link id="link-login" to="/login">Sign in here</router-link></span
+            >Don’t have account yet?
+            <router-link id="link-login" to="/register">Sign up here</router-link></span
           >
-
-          <div class="mb-6" style="width: 400px">
-            <span>Full name</span>
-            <div class="d-flex">
-              <q-input
-                class="mt-2 mr-4"
-                v-model="form.firstName"
-                filled
-                type="text"
-                placeholder="Enter first name"
-              >
-              </q-input>
-              <q-input placeholder="Enter last name" class="mt-2" v-model="form.lastName" filled type="text">
-              </q-input>
-            </div>
-          </div>
 
           <div class="mb-6" style="width: 400px">
             <span>Phone Number</span>
@@ -73,25 +57,6 @@
             </q-input>
           </div>
 
-          <div class="mb-6" style="width: 400px">
-            <span>Confirm Password</span>
-            <q-input
-              class="mt-2"
-              v-model="form.confirmPassword"
-              filled
-              placeholder="Enter confirm password"
-              :type="isPwd ? 'password' : 'text'"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-            </q-input>
-          </div>
-
           <div class="mb-5" style="width: 400px">
             <v-btn
               class="py-8"
@@ -102,7 +67,7 @@
             >
               <span
                 style="text-transform: none; font-size: 16px; font-weight: 600"
-                >Create an Account</span
+                >Sign In</span
               >
             </v-btn>
           </div>
@@ -123,10 +88,7 @@ export default {
       isPwd: true,
       isValidNumber: false,
       form: {
-        firstName: "",
-        lastName: "",
         password: "",
-        confirmPassword: "",
         phoneNumber: "",
       },
     };
@@ -145,19 +107,7 @@ export default {
         return true
       }
 
-      if(this.form.confirmPassword === '') {
-        return true
-      }
-
       if(!this.isValidNumber) {
-        return true
-      }
-
-      if(this.form.firstName=== '' || this.form.lastName=== '') {
-        return true
-      }
-
-      if(this.form.password !== this.form.confirmPassword) {
         return true
       }
 
