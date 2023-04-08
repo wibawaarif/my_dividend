@@ -51,7 +51,9 @@
 
           <div class="mb-6" style="width: 400px">
             <span>Phone Number</span>
+            <div class="mt-2">
             <MazPhoneNumberInput color="primary" size="lg" v-model="form.phoneNumber" @update:model-value="form.phoneNumber" @update="checkPhoneNumber" ></MazPhoneNumberInput>
+          </div>
           </div>
 
           <div class="mb-6" style="width: 400px">
@@ -80,13 +82,13 @@
               v-model="form.confirmPassword"
               filled
               placeholder="Enter confirm password"
-              :type="isPwd ? 'password' : 'text'"
+              :type="isConfirmPwd ? 'password' : 'text'"
             >
               <template v-slot:append>
                 <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  :name="isConfirmPwd  ? 'visibility_off' : 'visibility'"
                   class="cursor-pointer"
-                  @click="isPwd = !isPwd"
+                  @click="isConfirmPwd  = !isConfirmPwd "
                 />
               </template>
             </q-input>
@@ -121,6 +123,7 @@ export default {
   data() {
     return {
       isPwd: true,
+      isConfirmPwd: true,
       isValidNumber: false,
       form: {
         firstName: "",
