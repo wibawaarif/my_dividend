@@ -8,6 +8,11 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
   {
+    path: "/dividend-calculator",
+    name: "dividendCalculator",
+    component: () => import('@/views/DividendCalculator.vue')
+  },
+  {
     path: "/dashboard",
     name: "dashboard",
     component: () => import('@/views/Dashboard.vue')
