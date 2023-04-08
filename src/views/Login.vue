@@ -18,6 +18,7 @@
         </b-btn>
       </div>
       <v-card
+      v-if="!(isValidNumber && validateOTP)"
         class="mt-6"
         style="border-radius: 20px"
         width="500"
@@ -61,7 +62,7 @@
             <v-btn
               class="py-8"
               :disabled="buttonValidation"
-              @click="createAccount()"
+              @click="sendOTP()"
               style="background-color: #377dff; color: white"
               block
             >
@@ -71,6 +72,60 @@
               >
             </v-btn>
           </div>
+        </div>
+      </v-card>
+
+      <v-card
+        v-if="validateOTP && isValidNumber"
+        class="mt-6"
+        style="border-radius: 20px"
+        width="500"
+        height="500"
+      >
+        <div class="d-flex h-100 flex-column align-center justify-center">
+          <span style="font-weight: 600; font-size: 26px;" class="mb-6">Sign In</span>
+
+          <span
+          class="mb-6"
+            style="font-size: 18px; font-weight: 400; "
+            >Don’t have account yet?
+            <router-link id="link-login" to="/register">Sign up here</router-link></span
+          >
+
+          <span style="font-weight: 600; font-size: 20px;">OTP is sent to {{ form.phoneNumber }}</span>
+
+          <div class="mb-6 mt-6" style="width: 400px">
+            <q-input
+              class="mt-2 mb-2"
+              v-model="form.otp"
+              filled
+              placeholder="Insert your OTP..."
+            >
+            </q-input>
+          </div>
+
+          <div class="mb-5" style="width: 400px">
+            <v-btn
+              class="py-8"
+              :disabled="buttonValidation"
+              @click="createAccount()"
+              style="background-color: #377dff; color: white"
+              block
+            >
+              <span
+                style="text-transform: none; font-size: 16px; font-weight: 600"
+                >Verify</span
+              >
+            </v-btn>
+          </div>
+
+          <span
+          class="mb-6"
+            style="font-size: 18px; font-weight: 400; "
+            >Didn’t receive code?
+            <router-link id="link-login" to="/register">Request again</router-link></span
+          >
+
         </div>
       </v-card>
     </div>
@@ -86,6 +141,7 @@ export default {
   data() {
     return {
       isPwd: true,
+      validateOTP: false,
       isValidNumber: false,
       form: {
         password: "",
@@ -97,9 +153,9 @@ export default {
     checkPhoneNumber(value) {
       this.isValidNumber = value.isValid
     },
-    createAccount() {
-      console.log(this.form.firstName, this.form.lastName, this.form.password, this.form.confirmPassword, this.form.phoneNumber)
-    }
+    sendOTP() {
+      this.validateOTP = true;
+    },
   },
   computed: {
     buttonValidation() {

@@ -1,5 +1,5 @@
 // Composables
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
@@ -15,7 +15,7 @@ const routes = [
   {
     path: "/stock/:symbol",
     name: "stockDetail",
-    component: () => import('@/views/StockDetail.vue')
+    component: () => import('@/views/StockDetail.vue'),
   },
   {
     path: "/login",
@@ -26,6 +26,11 @@ const routes = [
     path: "/register",
     name: "register",
     component: () => import('@/views/Register.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound.vue')
   },
 ]
 

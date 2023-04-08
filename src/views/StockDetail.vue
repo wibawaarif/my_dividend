@@ -204,6 +204,15 @@ mounted() {
       this.selectedStockDetail = data
     });
 },
+beforeCreate() {
+  store.fetchStocks()
+    .then(() => {
+      const isValidSymbol = store.getStocks.includes(this.$route.params.symbol)
+      if(!isValidSymbol) {
+        return this.$router.push({name: 'NotFound'})
+      }
+    })
+},
 created() {
  document.title = "Stock Detail | MyDividend";
 }
