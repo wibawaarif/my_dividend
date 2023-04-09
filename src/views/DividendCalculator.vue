@@ -256,7 +256,6 @@ export default {
       for (let i = 0; i < this.numberOfYears; i++) {
         yieldValue +=
           Number(this.annualDivYield) * (Number(this.divGrowthRate) / 100);
-        console.log(yieldValue);
         this.dividendCalculation.push({
           year: i + 1,
           yield: yieldValue,
