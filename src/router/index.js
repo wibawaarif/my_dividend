@@ -23,6 +23,11 @@ const routes = [
     component: () => import('@/views/Dashboard.vue')
   },
   {
+    path: "/upcoming-dividends",
+    name: "upcomingDividends",
+    component: () => import('@/views/UpcomingDividend.vue')
+  },
+  {
     path: "/stock/:symbol",
     name: "stockDetail",
     component: () => import('@/views/StockDetail.vue'),
