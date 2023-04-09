@@ -4,16 +4,15 @@
 
   <v-app style="padding-left: 100px; padding-right: 100px;">
     <v-row class="mt-16 mb-16">
-      <v-col style="height: 550px;" class="d-flex flex-column justify-between">
+      <v-col style="height: 560px;" class="d-flex mt-2 flex-column justify-between">
 
-        <span style="color: rgba(13, 37, 53, 0.7); font-weight: 600; font-size: 24px;">Lorem ipsum dolor sit amet,</span>
+        <span style="color: rgba(13, 37, 53, 0.7); font-weight: 600; font-size: 24px;">Welcome to MyDividend.com,</span>
 
-        <span style="color: #377DFF; font-size: 60px; font-weight: 800;">Aliquam mollis odio Sed varius tempor.</span>
+        <span style="color: #377DFF; font-size: 64px; font-weight: 800; font-family: 'Jost', sans-serif;">Grow Your<br/> Wealth Through Smart Investments</span>
 
-        <span style="color: #7E8E99; font-weight: 400; font-size: 20px;">Interdum et malesuada fames ac ante ipsum
-primis in faucibus. Phasellus et ex rutrum</span>
+        <span style="color: #7E8E99; font-weight: 400; font-size: 20px;">Invest in your future with MyDividend - the ultimate resource for dividend investors.</span>
 
-        <div style="width: 350px;" class="d-flex justify-between">
+        <div style="width: 350px;" class="d-flex mt-4 justify-between">
 
           <v-btn
             style="background-color: #377dff; color: white"
