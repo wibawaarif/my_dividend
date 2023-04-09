@@ -113,9 +113,6 @@ export default {
       drawer: false,
     };
   },
-  methods: {},
-  computed: {},
-  mounted() {},
 };
 </script>
 
