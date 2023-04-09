@@ -22,7 +22,7 @@ primis in faucibus. Phasellus et ex rutrum</span>
             size="x-large"
             class="py-8 d-flex align-center mr-6 mb-2"
           >
-            <span>Get Started ></span>
+            <span style="font-weight: 700;">Get Started ></span>
           </v-btn>
 
           <v-btn
@@ -32,7 +32,7 @@ primis in faucibus. Phasellus et ex rutrum</span>
             size="x-large"
             class="py-8 d-flex align-center mr-6 mb-2"
           >
-            <span>Stock Screener</span>
+            <span style="font-weight: 700;">Stock Screener</span>
           </v-btn>
 
         </div>

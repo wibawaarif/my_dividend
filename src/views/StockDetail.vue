@@ -13,11 +13,11 @@
 
       <div class="d-flex align-end">
       <v-btn
-            style="background-color: #377DFF; color: white; width: 160px; height: 40px;"
+            style="background-color: #377DFF; color: white;"
             to="/dashboard"
             class="d-flex align-center py-6 mb-2"
           >
-            <span style="text-transform: none; font-weight: 700;">Save to Portfolio</span>
+            <span style="font-weight: 600">Add to Portfolio</span>
           </v-btn>
         </div>
 

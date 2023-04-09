@@ -63,11 +63,11 @@
         >
 
           <v-btn
-            style="background-color: #377dff; color: white"
+            style="background-color: #377dff; color: white; text-decoration: none;"
             class="d-flex align-center py-5"
             to="/dashboard"
           >
-            <span style="text-transform: none;">Dashboard</span>
+            <span style="text-decoration: none; text-transform: none;">Dashboard</span>
           </v-btn>
 
       </div>

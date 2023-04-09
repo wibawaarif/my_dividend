@@ -172,7 +172,7 @@ export default {
   },
   mounted() {},
   created() {
-    document.title = "Register | MyDividend";
+    document.title = "Login| MyDividend";
   },
 };
 </script>

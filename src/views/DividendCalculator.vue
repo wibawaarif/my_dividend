@@ -267,6 +267,9 @@ export default {
       }
     },
   },
+  created() {
+    document.title = "Dividend Calculator | MyDividend";
+  },
 };
 </script>
 

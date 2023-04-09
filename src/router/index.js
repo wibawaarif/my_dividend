@@ -13,6 +13,11 @@ const routes = [
     component: () => import('@/views/DividendCalculator.vue')
   },
   {
+    path: "/pricing",
+    name: "pricing",
+    component: () => import('@/views/Pricing.vue')
+  },
+  {
     path: "/dashboard",
     name: "dashboard",
     component: () => import('@/views/Dashboard.vue')
