@@ -18,6 +18,7 @@
     "libphonenumber-js": "^1.10.26",
     "maz-ui": "^3.8.0",
     "pinia": "^2.0.33",
+    "pinia-plugin-persistedstate": "^3.1.0",
     "quasar": "^2.11.9",
     "roboto-fontface": "*",
     "vue": "^3.2.13",

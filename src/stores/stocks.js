@@ -43,4 +43,7 @@ export const useStockStore = defineStore("stock",{
       }
     }
   },
+  persist: {
+    storage: sessionStorage
+  }
 })

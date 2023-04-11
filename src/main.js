@@ -10,6 +10,9 @@ import App from './App.vue';
 // register pinia
 import { createPinia } from 'pinia';
 
+// register persited state
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
+
 // Composables
 import { createApp } from 'vue';
 
@@ -34,6 +37,9 @@ import { registerPlugins } from '@/plugins';
 import VueApexCharts from "vue3-apexcharts";
 
 const pinia = createPinia()
+
+pinia.use(piniaPluginPersistedstate)
+
 const app = createApp(App)
 
 app.component('VueDatePicker', VueDatePicker);
