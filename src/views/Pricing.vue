@@ -109,7 +109,6 @@ import Navbar from "@/components/Navbar.vue";
   },
   methods: {
    changeState(type) {
-      console.log(type)
       if (type === "yearly") {
          this.isYearly = true;
       }
