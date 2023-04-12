@@ -3,7 +3,7 @@
     <Navbar type="homepage" />
     <div style="padding-left: 100px; padding-right: 100px;">
    <div class="d-flex flex-column justify-center text-center">
-      <span style="font-weight: 800; font-size: 60px; color: rgba(13, 37, 53, 0.8);">Pay <span style="color: #377DFF">Once</span>,<br/> Grow Your Dividend <span style="color: #377DFF">Forever</span></span>
+      <span style="font-weight: 800; font-size: 60px; color: rgba(13, 37, 53, 0.8);">Pay <span style="color:#64FCD9">Once</span>,<br/> Grow Your Dividend <span style="color: #64FCD9">Forever</span></span>
       <div class="d-flex justify-center mt-4">
          <v-btn @click="changeState('monthly')" :class="isYearly ? 'active-btn' :  'inactive-btn'" class="d-flex align-center py-6 px-7" style="background-color: #377DFF; color: white; border-radius: 10px;" >
             <span style="font-weight: 700; font-size: 16px; text-transform: none;">Monthly</span>

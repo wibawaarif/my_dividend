@@ -55,7 +55,7 @@
 
       <div class="text-center w-50 mt-4">
 
-      <span style="color: #377DFF; font-size: 48px; font-weight: 600;">Stock Screener</span>
+      <span style="color: #64FCD9; font-size: 48px; font-weight: 600;">Stock Screener</span>
 
       <q-select fill-input input-debounce="0" :loading="loadingOnClick && loadingStockSymbol" @update:model-value="selectedStockDetail" @focus="testing" use-input standout class="mt-8" outlined bottom-slots v-model="selectedStock" :options="stockOptions" @filter="filterFn">
 
@@ -77,7 +77,7 @@ Dividends in One Place</span>
 
         <v-col class="d-flex flex-column align-center">
           <v-img class="mt-2" :width="220" src="../assets/hero-1.png" />
-          <span class="mt-10" style="font-weight: 500; font-size: 20px; text-decoration: underline;">Simple to Use</span>
+          <span class="mt-10" style="font-weight: 500; font-size: 20px; text-decoration: underline; text-decoration-color: #64FCD9;">Simple to Use</span>
           <span style="font-size: 18px; color: #7E8E99;" class="mt-2">Get started with a free account. Add<br/> your stocks manually or<br/>
 download them from your broker.<br/> Receive alerts, see payments,<br/> 
 project future growth.</span>
@@ -88,16 +88,11 @@ project future growth.</span>
           <div>
           <v-img class="mt-2" :width="220" src="../assets/hero-2.png" />
         </div>
-          <span class="mt-10" style="font-weight: 500; font-size: 20px; text-decoration: underline;">Link Your Accounts</span>
+          <span class="mt-10" style="font-weight: 500; font-size: 20px; text-decoration: underline; text-decoration-color: #64FCD9;">Link Your Accounts</span>
           <span style="font-size: 18px; color: #7E8E99;" class="mt-2">Effortlessly connect to thousands of<br/> banks and brokerage firms using Plaid.<br/> The easiest way to add, track, and<br /> analyze your dividends stocks.</span>
           
 </v-col>
-
-
-
       </v-row>
-
-
 
   </div>
 

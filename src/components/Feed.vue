@@ -175,7 +175,7 @@
           <span class="text-uppercase mb-2 text-grey text-subtitle-2"
             >portfolio yield</span
           >
-          <span class="font-weight-bold text-h6">{{
+          <span style="text-decoration: underline; text-decoration-color: #64FCD9; text-decoration-thickness: 4px; text-underline-offset: 4px;" class="font-weight-bold text-h6">{{
             portfolioYield ? portfolioYield : "2.11%"
           }}</span>
         </v-col>
@@ -184,7 +184,7 @@
           <span class="text-uppercase mb-2 text-grey text-subtitle-2"
             >yield on cost</span
           >
-          <span class="font-weight-bold text-h6">{{
+          <span style="text-decoration: underline; text-decoration-color: #64FCD9; text-decoration-thickness: 4px; text-underline-offset: 4px;" class="font-weight-bold text-h6">{{
             yieldOnCost ? yieldOnCost : "5%"
           }}</span>
         </v-col>
@@ -193,16 +193,16 @@
           <span class="text-uppercase mb-2 text-grey text-subtitle-2"
             >annual income</span
           >
-          <span class="font-weight-bold text-h6"
+          <span style="text-decoration: underline; text-decoration-color: #64FCD9; text-decoration-thickness: 4px; text-underline-offset: 4px;" class="font-weight-bold text-h6"
             >${{ annualIncome ? annualIncome : "30,570" }}</span
           >
         </v-col>
         <v-divider class="mt-8" thickness="2" length="80" vertical></v-divider>
         <v-col class="d-flex flex-column py-10">
           <span class="text-uppercase mb-2 text-grey text-subtitle-2"
-            >portofolio beta</span
+            >portfolio beta</span
           >
-          <span class="font-weight-bold text-h6">{{
+          <span style="text-decoration: underline; text-decoration-color: #64FCD9; text-decoration-thickness: 4px; text-underline-offset: 4px;" class="font-weight-bold text-h6">{{
             portfolioBeta ? portfolioBeta : "2.11%"
           }}</span>
         </v-col>
@@ -426,5 +426,9 @@ export default {
   border-left: 1px solid grey;
   border-right: 1px solid grey;
 } 
+
+.text-indigo-accent-2 {
+  color: #64FCD9 !important;
+}
 
 </style>
