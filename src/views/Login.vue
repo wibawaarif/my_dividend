@@ -4,8 +4,8 @@
     class="px-0 py-0 h-screen"
     fluid
   >
-    <div class="d-flex flex-column align-center">
-      <div class="mt-10">
+    <div class="d-flex flex-column justify-center align-center h-screen w-screen">
+      <div>
         <b-btn
           @click="this.$router.push('/')"
           v-ripple="false"
@@ -22,7 +22,7 @@
         class="mt-6"
         style="border-radius: 20px"
         width="500"
-        height="500"
+        height="400"
       >
         <div class="d-flex h-100 flex-column align-center justify-center">
           <span style="font-weight: 600; font-size: 26px;" class="mb-6">Sign In</span>
@@ -39,26 +39,7 @@
             <MazPhoneNumberInput color="primary" size="lg" v-model="form.phoneNumber" @update:model-value="form.phoneNumber" @update="checkPhoneNumber" ></MazPhoneNumberInput>
           </div>
 
-          <div class="mb-6" style="width: 400px">
-            <span>Password</span>
-            <q-input
-              class="mt-2"
-              v-model="form.password"
-              filled
-              placeholder="Enter password"
-              :type="isPwd ? 'password' : 'text'"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-            </q-input>
-          </div>
-
-          <div class="mb-5" style="width: 400px">
+          <div class="mb-5 mt-2" style="width: 400px">
             <v-btn
               class="py-8"
               :disabled="buttonValidation"
@@ -144,7 +125,6 @@ export default {
       validateOTP: false,
       isValidNumber: false,
       form: {
-        password: "",
         phoneNumber: "",
       },
     };
@@ -159,10 +139,6 @@ export default {
   },
   computed: {
     buttonValidation() {
-      if(this.form.password === '') {
-        return true
-      }
-
       if(!this.isValidNumber) {
         return true
       }
