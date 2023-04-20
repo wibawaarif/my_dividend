@@ -20,7 +20,7 @@
       <v-card
       v-if="!(isValidNumber && validateOTP)"
         class="mt-6"
-        style="border-radius: 20px"
+        style="border-radius: 20px;"
         width="500"
         height="400"
       >
@@ -33,10 +33,10 @@
             >Don’t have account yet?
             <router-link id="link-login" to="/register">Sign up here</router-link></span
           >
-
+          {{ form.Phone }}
           <div class="mb-6" style="width: 400px">
             <span>Phone Number</span>
-            <MazPhoneNumberInput color="primary" size="lg" v-model="form.phoneNumber" @update:model-value="form.phoneNumber" @update="checkPhoneNumber" ></MazPhoneNumberInput>
+            <MazPhoneNumberInput color="primary" size="lg" @update="checkPhoneNumber" ></MazPhoneNumberInput>
           </div>
 
           <div class="mb-5 mt-2" style="width: 400px">
@@ -73,7 +73,7 @@
             <router-link id="link-login" to="/register">Sign up here</router-link></span
           >
 
-          <span style="font-weight: 600; font-size: 20px;">OTP is sent to {{ form.phoneNumber }}</span>
+          <span style="font-weight: 600; font-size: 20px;">OTP is sent to {{ form.Phone }}</span>
 
           <div class="mb-6 mt-6" style="width: 400px">
             <q-input
@@ -125,12 +125,13 @@ export default {
       validateOTP: false,
       isValidNumber: false,
       form: {
-        phoneNumber: "",
+        Phone: "",
       },
     };
   },
   methods: {
     checkPhoneNumber(value) {
+      this.form.Phone = `${value.countryCallingCode}${value.nationalNumber}`
       this.isValidNumber = value.isValid
     },
     sendOTP() {
