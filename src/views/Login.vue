@@ -33,7 +33,6 @@
             >Don’t have account yet?
             <router-link id="link-login" to="/register">Sign up here</router-link></span
           >
-          {{ form.Phone }}
           <div class="mb-6" style="width: 400px">
             <span>Phone Number</span>
             <MazPhoneNumberInput color="primary" size="lg" @update="checkPhoneNumber" ></MazPhoneNumberInput>
