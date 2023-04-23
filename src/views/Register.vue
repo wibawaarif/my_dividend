@@ -100,7 +100,7 @@ export default {
       this.isValidNumber = value.isValid
     },
     createAccount() {
-      console.log(this.form.firstName, this.form.lastName, this.form.password, this.form.confirmPassword, this.form.phoneNumber)
+      console.log(this.form.firstName, this.form.lastName, this.form.Phone)
     }
   },
   computed: {
