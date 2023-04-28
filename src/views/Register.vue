@@ -1,6 +1,6 @@
 <template>
   <v-container
-    style="background-color: #f4f4f4"
+    style="background-color: #f4f4f4;"
     class="px-0 py-0 h-screen"
     fluid
   >
@@ -39,12 +39,13 @@
               <q-input
                 class="mt-2 mr-4"
                 v-model="form.firstName"
-                filled
+                outlined 
+                color="indigo"
                 type="text"
                 placeholder="Enter first name"
               >
               </q-input>
-              <q-input placeholder="Enter last name" class="mt-2" v-model="form.lastName" filled type="text">
+              <q-input placeholder="Enter last name" class="mt-2" v-model="form.lastName" outlined color="indigo" type="text">
               </q-input>
             </div>
           </div>
@@ -77,6 +78,8 @@
 
 <script>
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
+import { useUserStore } from "../stores/users";
+const store = useUserStore();
 export default {
   components: {
     MazPhoneNumberInput
@@ -87,20 +90,20 @@ export default {
       isConfirmPwd: true,
       isValidNumber: false,
       form: {
-        action: "register",
         firstName: "",
         lastName: "",
-        Phone: "",
+        phone: "",
       },
     };
   },
   methods: {
     checkPhoneNumber(value) {
-      this.form.Phone = `${value.countryCallingCode}-${value.nationalNumber}`
+      this.form.phone = `${value.countryCallingCode}-${value.nationalNumber}`
       this.isValidNumber = value.isValid
     },
     createAccount() {
-      console.log(this.form.firstName, this.form.lastName, this.form.Phone)
+      store.registerUser(this.form)
+      this.$router.push('/login')
     }
   },
   computed: {
@@ -133,9 +136,6 @@ export default {
   text-decoration: underline;
 }
 
-.m-phone-number-input__select[data-v-b43ec161] .m-select-input .m-input-wrapper, .m-input.--has-label .m-input-input[data-v-c13c1d46] {
-  background-color: #F2F2F2;
-}
 
 </style>
 
