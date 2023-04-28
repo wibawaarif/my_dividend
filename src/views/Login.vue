@@ -72,7 +72,7 @@
             <router-link id="link-login" to="/register">Sign up here</router-link></span
           >
 
-          <span style="font-weight: 600; font-size: 20px;">OTP is sent to {{ form.Phone }}</span>
+          <span style="font-weight: 600; font-size: 20px;">OTP is sent to {{ form.phone }}</span>
 
           <div class="mb-6 mt-6" style="width: 400px">
             <q-input
@@ -114,6 +114,8 @@
 
 <script>
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
+import { useUserStore } from "../stores/users";
+const store = useUserStore();
 export default {
   components: {
     MazPhoneNumberInput
@@ -124,17 +126,18 @@ export default {
       validateOTP: false,
       isValidNumber: false,
       form: {
-        Phone: "",
+        phone: "",
       },
     };
   },
   methods: {
     checkPhoneNumber(value) {
-      this.form.Phone = `${value.countryCallingCode}${value.nationalNumber}`
+      this.form.phone = `${value.countryCallingCode}${value.nationalNumber}`
       this.isValidNumber = value.isValid
     },
-    sendOTP() {
+    async sendOTP() {
       this.validateOTP = true;
+      const res = await store.loginUser(this.form);
     },
   },
   computed: {

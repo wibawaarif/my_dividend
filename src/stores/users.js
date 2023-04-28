@@ -15,15 +15,27 @@ export const useUserStore = defineStore("users",{
   actions: {
     async registerUser(form) {
       try {
-        await axios.post('https://script.google.com/macros/s/AKfycbxAeAkDQdgoeUFhnWUyd-6sfDWB2aycl7B9r2pAuI9RX_JqLCPCB3-RshhfI2fgAugd/exec', {
+        const data = await axios.post('https://script.google.com/macros/s/AKfycbxAeAkDQdgoeUFhnWUyd-6sfDWB2aycl7B9r2pAuI9RX_JqLCPCB3-RshhfI2fgAugd/exec', {
           action: 'register',
           firstName: form.firstName,
           lastName: form.lastName,
           phone: form.phone
         });
+        return data
         }
         catch (error) {
-          console.log(error)
+          return error
+      }
+    },
+    async loginUser({phone}) {
+      try {
+        const data = await axios.post('https://script.google.com/macros/s/AKfycbxAeAkDQdgoeUFhnWUyd-6sfDWB2aycl7B9r2pAuI9RX_JqLCPCB3-RshhfI2fgAugd/exec', {
+          phone
+        });
+        return data
+        }
+        catch (error) {
+          return error
       }
     }
   },

@@ -4,6 +4,18 @@
     class="px-0 py-0 h-screen"
     fluid
   >
+  <q-dialog v-model="errorDialog" position="top">
+      <q-card style="width: 350px">
+        <q-card-section>
+          <div :class="[isError ? 'text-red' : 'text-green']" class="text-h6 text-bold">{{ isError ? 'Failed' : 'Success' }}</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          {{ messages }}
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
     <div class="d-flex flex-column justify-center align-center h-screen w-screen">
       <div>
         <b-btn
@@ -59,6 +71,7 @@
           <div class="mb-5 mt-2" style="width: 400px">
             <v-btn
               class="py-8"
+              :loading="loading"
               :disabled="buttonValidation"
               @click="createAccount()"
               style="background-color: #377dff; color: white"
@@ -89,6 +102,10 @@ export default {
       isPwd: true,
       isConfirmPwd: true,
       isValidNumber: false,
+      errorDialog: false,
+      loading: false,
+      isError: false,
+      messages: '',
       form: {
         firstName: "",
         lastName: "",
@@ -101,9 +118,31 @@ export default {
       this.form.phone = `${value.countryCallingCode}-${value.nationalNumber}`
       this.isValidNumber = value.isValid
     },
-    createAccount() {
-      store.registerUser(this.form)
-      this.$router.push('/login')
+    async createAccount() {
+      this.isError = false;
+      this.messages = '';
+      this.loading = true;
+      const res = await store.registerUser(this.form);
+      if (res.data.status === 'failed') {
+        this.isError = true;
+        this.errorDialog = true;
+        this.messages = res.data.errMessage
+        this.loading = false
+        setTimeout(() => {
+          this.errorDialog = false
+          this.form.phone = ''
+        }, 3000)
+        return
+      }
+      this.messages = 'Account Created'
+      this.errorDialog = true;
+      this.loading = false
+      setTimeout(() => {
+        this.errorDialog = false
+        }, 3000)
+      setTimeout(() => {
+        this.$router.push('/login')
+        }, 4000)
     }
   },
   computed: {
