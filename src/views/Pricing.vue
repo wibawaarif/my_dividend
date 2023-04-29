@@ -24,7 +24,7 @@
       <div style="height: 150px;" class="d-flex flex-column justify-center mt-4">
          <span style="color: #64FCD9; font-size: 18px;">Free</span>
          <span style="font-size: 48px;">$0</span>
-         <span style="font-size: 14px; color: rgba(199, 199, 199, 1);">per month</span>
+         <span style="font-size: 14px; color: rgba(199, 199, 199, 1);">{{ isYearly ? 'per year' : 'per month' }}</span>
 
       </div>
 
@@ -58,8 +58,8 @@
 
       <div style="height: 150px;" class="d-flex flex-column justify-center mt-4">
          <span style="color: #377DFF; font-size: 18px;">Premium</span>
-         <span style="font-size: 48px;">$9.99</span>
-         <span style="font-size: 14px; color: rgba(199, 199, 199, 1);">per month</span>
+         <span style="font-size: 48px;">{{ isYearly ? '$89.99' : '$9.99' }}</span>
+         <span style="font-size: 14px; color: rgba(199, 199, 199, 1);">{{ isYearly ? 'per year' : 'per month' }}</span>
 
       </div>
 
