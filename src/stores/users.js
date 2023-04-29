@@ -30,7 +30,8 @@ export const useUserStore = defineStore("users",{
     async loginUser({phone}) {
       try {
         const data = await axios.post('https://script.google.com/macros/s/AKfycbxAeAkDQdgoeUFhnWUyd-6sfDWB2aycl7B9r2pAuI9RX_JqLCPCB3-RshhfI2fgAugd/exec', {
-          phone
+        action: 'logincreate',  
+        phone
         });
         return data
         }

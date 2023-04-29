@@ -4,6 +4,17 @@
     class="px-0 py-0 h-screen"
     fluid
   >
+  <q-dialog v-model="errorDialog" position="top">
+      <q-card style="width: 350px">
+        <q-card-section>
+          <div :class="[isError ? 'text-red' : 'text-green']" class="text-h6 text-bold">{{ isError ? 'Failed' : 'Success' }}</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          {{ messages }}
+        </q-card-section>
+      </q-card>
+    </q-dialog>
     <div class="d-flex flex-column justify-center align-center h-screen w-screen">
       <div>
         <b-btn
@@ -43,6 +54,7 @@
               class="py-8"
               :disabled="buttonValidation"
               @click="sendOTP()"
+              :loading="loading"
               style="background-color: #377dff; color: white"
               block
             >
@@ -125,6 +137,10 @@ export default {
       isPwd: true,
       validateOTP: false,
       isValidNumber: false,
+      errorDialog: false,
+      loading: false,
+      isError: false,
+      messages: '',
       form: {
         phone: "",
       },
@@ -136,8 +152,24 @@ export default {
       this.isValidNumber = value.isValid
     },
     async sendOTP() {
-      this.validateOTP = true;
+      this.isError = false;
+      this.messages = '';
+      this.loading = true;
+      
       const res = await store.loginUser(this.form);
+      if (res.data.status === 'failed') {
+        this.isError = true;
+        this.errorDialog = true;
+        this.messages = res.data.errMessage
+        this.loading = false
+        setTimeout(() => {
+          this.errorDialog = false
+        }, 3000)
+        return
+      }
+      this.errorDialog = true;
+      this.loading = false
+      this.validateOTP = true;
     },
   },
   computed: {
