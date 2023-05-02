@@ -38,6 +38,19 @@ export const useUserStore = defineStore("users",{
         catch (error) {
           return error
       }
+    },
+    async verifyLoginUser({phone, otp}) {
+      try {
+        const data = await axios.post('https://script.google.com/macros/s/AKfycbxAeAkDQdgoeUFhnWUyd-6sfDWB2aycl7B9r2pAuI9RX_JqLCPCB3-RshhfI2fgAugd/exec', {
+        action: 'loginverify',  
+        phone,
+        otp
+        });
+        return data
+        }
+        catch (error) {
+          return error
+      }
     }
   },
   persist: {

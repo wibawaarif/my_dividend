@@ -1,7 +1,7 @@
 <template>
   <v-container
     style="background-color: #f4f4f4"
-    class="px-0 py-0 h-screen"
+    class="px-0 py-0"
     fluid
   >
   <q-dialog v-model="errorDialog" position="top">
@@ -15,7 +15,7 @@
         </q-card-section>
       </q-card>
     </q-dialog>
-    <div class="d-flex flex-column justify-center align-center h-screen w-screen">
+    <div class="d-flex flex-column justify-center align-center w-screen">
       <div>
         <b-btn
           @click="this.$router.push('/')"
@@ -72,10 +72,10 @@
         class="mt-6"
         style="border-radius: 20px"
         width="500"
-        height="500"
+        height="800"
       >
         <div class="d-flex h-100 flex-column align-center justify-center">
-          <span style="font-weight: 600; font-size: 26px;" class="mb-6">Sign In</span>
+          <span style="font-weight: 600; font-size: 26px;" class="mb-6">Sign In Verification</span>
 
           <span
           class="mb-6"
@@ -84,23 +84,22 @@
             <router-link id="link-login" to="/register">Sign up here</router-link></span
           >
 
-          <span style="font-weight: 600; font-size: 20px;">OTP is sent to {{ form.phone }}</span>
+          <qrcode-vue :value="QRValue" size="200" level="H" />
+          <span class="text-h6 font-weight-medium mt-2">OR</span>
+          <a class="text-h6" target="_blank" rel="noopener noreferrer" :href="QRValue">Whatsapp Web</a>
 
-          <div class="mb-6 mt-6" style="width: 400px">
-            <q-input
-              class="mt-2 mb-2"
-              v-model="form.otp"
-              filled
-              placeholder="Insert your OTP..."
-            >
-            </q-input>
+          <div class="text-center mt-4">
+            <li style="list-style-type: none;" :key="step" v-for="step in steps">
+              {{ step }}
+            </li>
+
           </div>
 
           <div class="mb-5" style="width: 400px">
             <v-btn
               class="py-8"
-              :disabled="buttonValidation"
-              @click="createAccount()"
+              @click="verifyLogin()"
+              :loading="loading"
               style="background-color: #377dff; color: white"
               block
             >
@@ -111,13 +110,6 @@
             </v-btn>
           </div>
 
-          <span
-          class="mb-6"
-            style="font-size: 18px; font-weight: 400; "
-            >Didn’t receive code?
-            <router-link id="link-login" to="/register">Request again</router-link></span
-          >
-
         </div>
       </v-card>
     </div>
@@ -126,11 +118,13 @@
 
 <script>
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
+import QrcodeVue from 'qrcode.vue'
 import { useUserStore } from "../stores/users";
 const store = useUserStore();
 export default {
   components: {
-    MazPhoneNumberInput
+    MazPhoneNumberInput,
+    QrcodeVue,
   },
   data() {
     return {
@@ -139,10 +133,13 @@ export default {
       isValidNumber: false,
       errorDialog: false,
       loading: false,
+      QRValue: '',
       isError: false,
+      steps: [],
       messages: '',
       form: {
         phone: "",
+        otp: "",
       },
     };
   },
@@ -151,8 +148,25 @@ export default {
       this.form.phone = `${value.countryCallingCode}${value.nationalNumber}`
       this.isValidNumber = value.isValid
     },
+    async verifyLogin() {
+      this.loading = true;
+      const res = await store.verifyLoginUser(this.form);
+      if (res.data.status === 'failed') {
+        this.isError = true;
+        this.errorDialog = true;
+        this.messages = res.data.errMessage
+        this.loading = false
+        setTimeout(() => {
+          this.errorDialog = false
+        }, 3000)
+        return
+      }
+      this.loading = false
+      this.$router.push('/dashboard')
+    },
     async sendOTP() {
       this.isError = false;
+      this.QRValue = '';
       this.messages = '';
       this.loading = true;
       
@@ -167,9 +181,13 @@ export default {
         }, 3000)
         return
       }
-      this.errorDialog = true;
       this.loading = false
+      console.log(res);
+      this.QRValue = res.data.data.otpVerifyLink
+      this.steps = res.data.data.veritySteps
+      this.form.otp = res.data.data.otp
       this.validateOTP = true;
+
     },
   },
   computed: {
