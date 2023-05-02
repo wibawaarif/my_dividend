@@ -252,6 +252,7 @@ export default {
         }, 3000)
         return
       }
+      localStorage.setItem('token', res.data.data.sessionToken)
       this.loadingLogin = false
       this.$router.push('/dashboard')
     },
