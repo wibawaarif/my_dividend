@@ -253,7 +253,7 @@ export default {
         return
       }
       this.loadingLogin = false
-      // this.$router.push('/dashboard')
+      this.$router.push('/dashboard')
     },
     async sendOTP() {
       this.isErrorLogin = false;
