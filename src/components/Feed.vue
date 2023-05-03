@@ -25,7 +25,7 @@
                 <q-select
                   @focus="triggerLoading"
                   class="mt-2"
-                  v-model="selectedStock"
+                  v-model="form.symbol"
                   outlined
                   bg-color="white"
                   color="indigo"
@@ -49,7 +49,7 @@
                   input-class-name="dp-custom-input"
                   placeholder="Enter Buy Date..."
                   auto-apply
-                  v-model="buyDate"
+                  v-model="form.buyDate"
                 ></VueDatePicker>
               </v-col>
               <v-col cols="12">
@@ -301,11 +301,13 @@ export default {
       accountName: "",
       loadingOnClick: false,
       selectedCurrency: "",
-      selectedStock: "",
       shares: "",
-      buyDate: "",
-      sellDate: "",
-      quantity: "",
+      form: {
+        symbol: "",
+        buyDate: "",
+        sellDate: "",
+        quantity: "",
+      },
       items: [
         {
           title: "Home",
@@ -359,10 +361,10 @@ export default {
       }
 
       if (type === "new-holding") {
-        this.selectedStock = "";
-        this.quantity = "";
-        this.sellDate = "";
-        this.buyDate = "";
+        this.form.symbol = "";
+        this.form.quantity = "";
+        this.form.sellDate = "";
+        this.form.buyDate = "";
         this.addHoldingDialog = false;
       }
     },
@@ -383,11 +385,11 @@ export default {
       }
     },  
     validateHolding() {
-      if (this.selectedStock === "") {
+      if (this.form.symbol === "") {
         return true;
       }
 
-      if (this.buyDate === "") {
+      if (this.form.buyDate === "") {
         return true;
       }
 

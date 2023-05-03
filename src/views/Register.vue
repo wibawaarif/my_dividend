@@ -253,6 +253,7 @@ export default {
         return
       }
       this.loadingLogin = false
+      localStorage.setItem('token', res.data.data.sessionToken)
       this.$router.push('/dashboard')
     },
     async sendOTP() {

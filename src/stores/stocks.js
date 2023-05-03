@@ -63,6 +63,23 @@ export const useStockStore = defineStore("stock",{
           alert(error)
           console.log(error)
       }
+    },
+    async saveHoldings(form) {
+      try {
+        const data = await axios.post('https://script.google.com/macros/s/AKfycbzfnz1wW5KlCYh40uE-MNJP2o2Zo3BTh1fdPhpn0noOU7avXYfGdhwakAKAkfq80G8m7A/exec', {
+          action: 'saveholding',
+        }, {
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+        })
+        this.holdings = data.data
+        return data
+        }
+        catch (error) {
+          alert(error)
+          console.log(error)
+      }
     }
   },
   persist: {
