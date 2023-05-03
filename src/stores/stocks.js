@@ -4,6 +4,8 @@ import { defineStore } from 'pinia'
 // Import axios to make HTTP requests
 import axios from "axios"
 
+const HOLDINGS_URL = "https://script.google.com/macros/s/AKfycbzfnz1wW5KlCYh40uE-MNJP2o2Zo3BTh1fdPhpn0noOU7avXYfGdhwakAKAkfq80G8m7A/exec";
+
 export const useStockStore = defineStore("stock",{
    state: () => ({
       stocks: [],
@@ -48,7 +50,7 @@ export const useStockStore = defineStore("stock",{
     },
     async fetchHoldings(token) {
       try {
-        const data = await axios.post('https://script.google.com/macros/s/AKfycbzfnz1wW5KlCYh40uE-MNJP2o2Zo3BTh1fdPhpn0noOU7avXYfGdhwakAKAkfq80G8m7A/exec', {
+        const data = await axios.post(HOLDINGS_URL, {
           action: 'getholding',
           token,
         }, {
@@ -64,11 +66,12 @@ export const useStockStore = defineStore("stock",{
           console.log(error)
       }
     },
-    async saveHoldings(form) {
+    async saveHoldings(form, token) {
       try {
-        const data = await axios.post('https://script.google.com/macros/s/AKfycbzfnz1wW5KlCYh40uE-MNJP2o2Zo3BTh1fdPhpn0noOU7avXYfGdhwakAKAkfq80G8m7A/exec', {
+        const data = await axios.post(HOLDINGS_URL, Object.assign(form, {
           action: 'saveholding',
-        }, {
+          token,
+        }), {
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },

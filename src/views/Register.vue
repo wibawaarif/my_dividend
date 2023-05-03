@@ -232,6 +232,8 @@ export default {
       this.messages = 'Account Created'
       this.errorDialog = true;
       this.loading = false
+      this.form.firstName = ''
+      this.form.lastName = ''
       setTimeout(() => {
         this.errorDialog = false
         }, 3000)

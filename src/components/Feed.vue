@@ -272,8 +272,8 @@
 <script>
 import VueApexCharts from "vue3-apexcharts";
 import { useStockStore } from "../stores/stocks";
-const store = useStockStore();
 import { useUserStore } from "../stores/users";
+const store = useStockStore();
 const userStore = useUserStore();
 
 export default {
@@ -369,6 +369,10 @@ export default {
       }
     },
     addStock() {
+      store.saveHoldings(this.form, userStore.getToken).then(() => {
+      // this.stockOptions = store.getHoldings;
+      console.log(store.getHoldings)
+    });
       this.addHoldingDialog = false;
       this.notification = true;
     },
