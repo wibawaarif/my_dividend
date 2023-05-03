@@ -273,6 +273,8 @@
 import VueApexCharts from "vue3-apexcharts";
 import { useStockStore } from "../stores/stocks";
 const store = useStockStore();
+import { useUserStore } from "../stores/users";
+const userStore = useUserStore();
 
 export default {
   data() {
@@ -399,6 +401,10 @@ export default {
   mounted() {
     store.fetchStocks().then(() => {
       this.stockOptions = store.getStocks;
+    });
+    store.fetchHoldings(userStore.getToken).then(() => {
+      // this.stockOptions = store.getHoldings;
+      console.log(store.getHoldings)
     });
   },
   created() {

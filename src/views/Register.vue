@@ -252,9 +252,8 @@ export default {
         }, 3000)
         return
       }
-      localStorage.setItem('token', res.data.data.sessionToken)
       this.loadingLogin = false
-      this.$router.push('/dashboard')
+      // this.$router.push('/dashboard')
     },
     async sendOTP() {
       this.isErrorLogin = false;
@@ -274,7 +273,6 @@ export default {
         return
       }
       this.loadingLogin = false
-      console.log(res);
       this.QRValue = res.data.data.otpVerifyLink
       this.steps = res.data.data.veritySteps
       this.formLogin.otp = res.data.data.otp

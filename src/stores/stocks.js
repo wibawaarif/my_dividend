@@ -7,10 +7,14 @@ import axios from "axios"
 export const useStockStore = defineStore("stock",{
    state: () => ({
       stocks: [],
+      holdings: [],
   }),
   getters: {
     getStocks(state){
         return state.stocks
+      },
+    getHoldings(state){
+        return state.holdings
       }
   },
   actions: {
@@ -36,6 +40,24 @@ export const useStockStore = defineStore("stock",{
           exDate: x.exDate,
           }
         })
+        }
+        catch (error) {
+          alert(error)
+          console.log(error)
+      }
+    },
+    async fetchHoldings(token) {
+      try {
+        const data = await axios.post('https://script.google.com/macros/s/AKfycbzfnz1wW5KlCYh40uE-MNJP2o2Zo3BTh1fdPhpn0noOU7avXYfGdhwakAKAkfq80G8m7A/exec', {
+          action: 'getholding',
+          token,
+        }, {
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+        })
+        this.holdings = data.data
+        return data
         }
         catch (error) {
           alert(error)
