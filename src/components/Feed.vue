@@ -1,5 +1,16 @@
 <template>
   <v-app style="padding-left: 100px; padding-right: 100px;">
+    <q-dialog v-model="errorDialog" position="top">
+      <q-card style="width: 350px">
+        <q-card-section>
+          <div :class="[isError ? 'text-red' : 'text-green']" class="text-h6 text-bold">{{ isError ? 'Failed' : 'Success' }}</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          {{ messages }}
+        </q-card-section>
+      </q-card>
+    </q-dialog>
     <q-dialog @hide="clearFields('new-holding')" v-model="addHoldingDialog" width="620">
       <v-card>
         <v-card-title class="d-flex align-center justify-space-between pt-4">
@@ -61,7 +72,7 @@
                   auto-apply
                   teleport-center
                   placeholder="Enter Sell Date..."
-                  v-model="sellDate"
+                  v-model="form.sellDate"
                 ></VueDatePicker>
               </v-col>
               <v-col cols="12">
@@ -78,6 +89,7 @@
           <v-spacer></v-spacer>
           <v-btn
             :disabled="validateHolding"
+            :loading="loading"
             style="background-color: #377dff; color: white"
             @click="addStock()"
             class="py-6 d-flex align-center mr-6 mb-2"
@@ -221,6 +233,7 @@
         ></v-text-field>
       </v-card-title>
       <v-data-table
+        v-if="fetchLoading"
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
         :items="desserts"
@@ -240,6 +253,55 @@
           </v-btn>
         </template>
       </v-data-table>
+      <div v-else class="q-pa-md">
+    <q-markup-table>
+      <thead>
+        <tr>
+          <th class="text-left" style="width: 150px">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="n in 5" :key="n">
+          <td class="text-left">
+            <q-skeleton animation="blink" type="text" width="85px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="50px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="35px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="65px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="25px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="85px" />
+          </td>
+        </tr>
+      </tbody>
+    </q-markup-table>
+  </div>
     </v-card>
 
     <v-card class="my-10 mx-auto">
@@ -257,15 +319,6 @@
         ></apexchart>
       </div>
     </v-card>
-
-    <v-snackbar v-model="notification">
-      Holding added
-      <template v-slot:actions>
-        <v-btn color="pink" variant="text" @click="snackbar = false">
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-app>
 </template>
 
@@ -281,7 +334,12 @@ export default {
     return {
       stockOptions: "",
       tab: null,
-      notification: false,
+      holdings: [],
+      loading: false,
+      errorDialog: false,
+      isError: false,
+      fetchLoading: false,
+      messages:"",
       options: {
         chart: {
           id: "vuechart-example",
@@ -307,6 +365,8 @@ export default {
         buyDate: "",
         sellDate: "",
         quantity: "",
+        buyPrice: 140.21,
+        sellPrice: 1394,
       },
       items: [
         {
@@ -368,13 +428,29 @@ export default {
         this.addHoldingDialog = false;
       }
     },
-    addStock() {
-      store.saveHoldings(this.form, userStore.getToken).then(() => {
-      // this.stockOptions = store.getHoldings;
-      console.log(store.getHoldings)
-    });
+    async addStock() {
+      this.isError = false;
+      this.messages = '';
+      this.loading = true;
+      const res = await store.saveHoldings(this.form, userStore.getToken)
+      if (res.data.status === 'failed') {
+        this.isError = true;
+        this.errorDialog = true;
+        this.messages = res.data.errMessage
+        this.loading = false
+        setTimeout(() => {
+          this.errorDialog = false
+        }, 3000)
+        return
+      }
+      this.isError = false;
+      this.loading = false
       this.addHoldingDialog = false;
-      this.notification = true;
+      this.errorDialog = true;
+      this.messages = "Holdings saved successfully"
+      setTimeout(() => {
+          this.errorDialog = false
+        }, 3000)
     },
   },
   computed: {
@@ -409,8 +485,8 @@ export default {
       this.stockOptions = store.getStocks;
     });
     store.fetchHoldings(userStore.getToken).then(() => {
-      // this.stockOptions = store.getHoldings;
-      console.log(store.getHoldings)
+      this.holdings = store.getHoldings;
+      this.fetchLoading = true;
     });
   },
   created() {

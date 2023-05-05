@@ -58,7 +58,7 @@ export const useStockStore = defineStore("stock",{
               "Content-Type": "text/plain;charset=utf-8",
             },
         })
-        this.holdings = data.data
+        this.holdings = data.data.data.holdings
         return data
         }
         catch (error) {
