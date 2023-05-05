@@ -16,7 +16,7 @@
 
           <v-btn
             style="background-color: #377dff; color: white"
-            to="/register"
+            :to="checkSession"
             elevation="8"
             size="x-large"
             class="py-8 d-flex align-center mr-6 mb-2"
@@ -139,6 +139,9 @@ project future growth.</span>
     },
   },
   computed: {
+    checkSession() {
+      return localStorage.getItem('token') ? '/dashboard' : '/register' 
+    },
     getStocks() {
       return store.getStocks;
     },

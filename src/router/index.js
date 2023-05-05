@@ -20,7 +20,17 @@ const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: () => import('@/views/Dashboard.vue')
+    component: () => import('@/views/Dashboard.vue'),
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('token')) {
+        next();
+        return
+      }
+
+      router.push({
+        name: 'register',
+      })
+    }
   },
   {
     path: "/upcoming-dividends",
@@ -35,7 +45,16 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: () => import('@/views/Register.vue')
+    component: () => import('@/views/Register.vue'),
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('token')) {
+        router.push({
+          name: 'home'
+        })
+        return
+      }
+      next();
+    }
   },
   {
     path: '/:pathMatch(.*)*',

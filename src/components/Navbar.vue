@@ -43,7 +43,7 @@
               </v-btn>
             </v-list-item>
             <v-list-item class="px-0">
-              <v-btn color="red" variant="text" @click="">
+              <v-btn color="red" variant="text" @click="logout">
                 <v-icon>mdi-logout</v-icon><span class="ml-2">Logout</span>
               </v-btn>
             </v-list-item>
@@ -113,6 +113,14 @@ export default {
       drawer: false,
     };
   },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push({
+        name: 'home'
+      })
+    }
+  }
 };
 </script>
 
