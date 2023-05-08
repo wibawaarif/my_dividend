@@ -266,6 +266,9 @@
           <v-btn @click="deleteItem(item.raw)" size="small" icon="mdi-delete">
           </v-btn>
         </template>
+        <template v-slot:item.profitLoss="{ item }">
+          <span :class="item.raw.profitLoss < 0 ? 'text-red' : 'text-green'">{{ item.raw.profitLoss }}</span>
+        </template>
       </v-data-table>
       <div v-else class="q-pa-md">
     <q-markup-table>
@@ -405,7 +408,7 @@ export default {
         { title: "Shares", align: "end", key: "quantity" },
         { title: "Buy Price", align: "end", key: "buyPrice" },
         { title: "Sell Price", align: "end", key: "sellPrice" },
-        { title: "Profit/Loss", align: "end", key: "profitLoss" },
+        { title: "Profit/Loss (%)", align: "end", key: "profitLoss" },
         { title: "Buy Date", align: "end", key: "buyDate" },
         { title: "Sell Date", align: "end", key: "sellDate" },
         { title: "Actions", align: "end", key: "actions", sortable: false },
@@ -481,7 +484,7 @@ export default {
           buyDate: new Date(x.buyDate).toLocaleDateString(),
           sellDate: new Date(x.sellDate).toLocaleDateString(),
           quantity: x.quantity, 
-          profitLoss: `${(x.sellPrice - x.buyPrice) / x.buyPrice * 100}`
+          profitLoss: `${Math.round((((x.sellPrice - x.buyPrice) / x.buyPrice * 100) + Number.EPSILON) * 100)  / 100}`
         }
       })
       return holdings
