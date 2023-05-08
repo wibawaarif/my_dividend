@@ -13,7 +13,7 @@
     </q-dialog>
     <q-dialog @hide="clearFields('new-holding')" v-model="addHoldingDialog" width="620">
       <v-card>
-        <v-card-title class="d-flex align-center justify-space-between pt-4">
+        <v-card-title class="d-flex align-center justify-space-between pt-2">
           <span class="text-h5 ml-4">New Holding</span>
           <v-btn
             flat
@@ -28,7 +28,7 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12">
+              <v-col class="py-0" cols="12">
                 <span
                   >Select Stock Symbol
                   <span class="text-red font-weight-bold">*</span></span
@@ -49,7 +49,7 @@
                 >
                 </q-select>
               </v-col>
-              <v-col cols="12">
+              <v-col class="py-1" cols="12">
                 <span
                   >Buy Date
                   <span class="text-red font-weight-bold">*</span></span
@@ -63,7 +63,7 @@
                   v-model="form.buyDate"
                 ></VueDatePicker>
               </v-col>
-              <v-col cols="12">
+              <v-col class="py-1" cols="12">
                 <span>Sell Date</span>
                 <VueDatePicker
                   :enable-time-picker="false"
@@ -75,12 +75,26 @@
                   v-model="form.sellDate"
                 ></VueDatePicker>
               </v-col>
-              <v-col cols="12">
+              <v-col class="py-1" cols="12">
+                <span
+                  >Buy Price
+                  <span class="text-red font-weight-bold">*</span></span
+                >
+                <q-input class="mt-2" outlined color="indigo" type="number" v-model="form.buyPrice" />
+              </v-col>
+              <v-col class="py-1" cols="12">
+                <span
+                  >Sell Price
+                  <span class="text-red font-weight-bold">*</span></span
+                >
+                <q-input class="mt-2" outlined color="indigo" type="number" v-model="form.sellPrice" />
+              </v-col>
+              <v-col class="py-1" cols="12">
                 <span
                   >Quantity
                   <span class="text-red font-weight-bold">*</span></span
                 >
-                <q-input class="mt-2" outlined color="indigo" type="number" v-model="quantity" />
+                <q-input class="mt-2" outlined color="indigo" type="number" v-model="form.quantity" />
               </v-col>
             </v-row>
           </v-container>
@@ -236,7 +250,7 @@
         v-if="fetchLoading"
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
-        :items="desserts"
+        :items="getholdings"
         item-value="name"
         class="elevation-1"
         :search="search"
@@ -365,8 +379,8 @@ export default {
         buyDate: "",
         sellDate: "",
         quantity: "",
-        buyPrice: 140.21,
-        sellPrice: 1394,
+        buyPrice: "",
+        sellPrice: "",
       },
       items: [
         {
@@ -386,16 +400,14 @@ export default {
         {
           title: "Ticker",
           align: "start",
-          key: "ticker",
+          key: "symbol",
         },
-        { title: "Shares", align: "end", key: "shares" },
-        { title: "Price", align: "end", key: "price" },
-        { title: "Change", align: "end", key: "change" },
-        { title: "Average Cost", align: "end", key: "averageCost" },
+        { title: "Shares", align: "end", key: "quantity" },
+        { title: "Buy Price", align: "end", key: "buyPrice" },
+        { title: "Sell Price", align: "end", key: "sellPrice" },
         { title: "Profit/Loss", align: "end", key: "profitLoss" },
-        { title: "Dividend Yield", align: "end", key: "dividendYield" },
-        { title: "Yield On Cost", align: "end", key: "yieldOnCost" },
-        { title: "Annual Income", align: "end", key: "annualIncome" },
+        { title: "Buy Date", align: "end", key: "buyDate" },
+        { title: "Sell Date", align: "end", key: "sellDate" },
         { title: "Actions", align: "end", key: "actions", sortable: false },
       ],
     };
@@ -425,6 +437,8 @@ export default {
         this.form.quantity = "";
         this.form.sellDate = "";
         this.form.buyDate = "";
+        this.form.buyPrice = "";
+        this.form.sellPrice = "";
         this.addHoldingDialog = false;
       }
     },
@@ -443,6 +457,7 @@ export default {
         }, 3000)
         return
       }
+      await store.fetchHoldings(userStore.getToken)
       this.isError = false;
       this.loading = false
       this.addHoldingDialog = false;
@@ -456,6 +471,20 @@ export default {
   computed: {
     getStocks() {
       return store.getStocks;
+    },
+    getholdings() {
+      const holdings = store.getHoldings.map(x => {
+        return {
+          symbol: x.symbol,
+          buyPrice: x.buyPrice,
+          sellPrice: x.sellPrice,
+          buyDate: new Date(x.buyDate).toLocaleDateString(),
+          sellDate: new Date(x.sellDate).toLocaleDateString(),
+          quantity: x.quantity, 
+          profitLoss: `${(x.sellPrice - x.buyPrice) / x.buyPrice * 100}`
+        }
+      })
+      return holdings
     },
     loadingStockSymbol() {
       if (this.getStocks.length === 0) {
