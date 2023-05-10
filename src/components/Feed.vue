@@ -519,7 +519,16 @@ export default {
     store.fetchHoldings(userStore.getToken).then(() => {
       this.holdings = store.getHoldings;
       this.fetchLoading = true;
-    });
+    }).catch(() => {
+        this.isError = true;
+        this.errorDialog = true;
+        this.messages = 'Invalid Token'
+      setTimeout(() => {
+        this.errorDialog = false
+        localStorage.clear();
+        this.$router.push('/register');
+      }, 3000)
+    })
   },
   created() {
     document.title = "Dashboard | MyDividend";

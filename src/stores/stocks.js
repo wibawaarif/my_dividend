@@ -49,7 +49,6 @@ export const useStockStore = defineStore("stock",{
       }
     },
     async fetchHoldings(token) {
-      try {
         const data = await axios.post(HOLDINGS_URL, {
           action: 'getholding',
           token,
@@ -58,13 +57,12 @@ export const useStockStore = defineStore("stock",{
               "Content-Type": "text/plain;charset=utf-8",
             },
         })
+        if (data.data.status === 'failed') {
+          throw new Error('Invalid Token')
+        }
         this.holdings = data.data.data.holdings
         return data
-        }
-        catch (error) {
-          alert(error)
-          console.log(error)
-      }
+
     },
     async saveHoldings(form, token) {
       try {
