@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 // Import axios to make HTTP requests
 import axios from "axios"
 
-const HOLDINGS_URL = "https://script.google.com/macros/s/AKfycbzfnz1wW5KlCYh40uE-MNJP2o2Zo3BTh1fdPhpn0noOU7avXYfGdhwakAKAkfq80G8m7A/exec";
+const HOLDINGS_URL = "https://script.google.com/macros/s/AKfycby0s_ba3GYxEpTlO4_cYfGfPBAiNWjLEvaq_pdwCDC8QWZXK7RHc6rLZYIkL34OSZQf/exec";
 
 export const useStockStore = defineStore("stock",{
    state: () => ({
@@ -80,6 +80,26 @@ export const useStockStore = defineStore("stock",{
           alert(error)
           console.log(error)
       }
+    },
+    async deleteHoldings(id, token) {
+        const data = await axios.post(HOLDINGS_URL, {
+          id,
+          action: "deleteholding",
+          token,
+        }, {
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+        })
+        if (data.data.status === 'failed') {
+          throw new Error('Failed to delete')
+        }
+
+        this.holdings = this.holdings.filter(holding => holding.id !== id)
+
+        return data
+
+
     }
   },
   persist: {

@@ -11,6 +11,37 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="dialogDelete" width="700">
+      <v-card>
+        <v-card-title class="d-flex align-center justify-space-between pt-2">
+          <span class="text-h5 ml-4">Delete Holding</span>
+        
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <span style="font-size: 18px;">Are you sure want to delete {{ selectedItemSymbol }} from holdings ?</span>
+          </v-container>
+        </v-card-text>
+        <v-card-actions class="mb-2">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click="dialogDelete = false"
+            color="blue-darken-4"
+            variant="outlined"
+            class="py-6 px-5 d-flex align-center mr-2 mb-2"
+          >
+            <span>Cancel</span>
+          </v-btn>
+          <v-btn
+            style="background-color: #377dff; color: white"
+            @click="confirmDelete()"
+            class="py-6 px-5 d-flex align-center mr-6 mb-2"
+          >
+            <span>Confirm</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </q-dialog>
     <q-dialog @hide="clearFields('new-holding')" v-model="addHoldingDialog" width="620">
       <v-card>
         <v-card-title class="d-flex align-center justify-space-between pt-2">
@@ -263,7 +294,7 @@
             icon="mdi-pencil"
           >
           </v-btn>
-          <v-btn @click="deleteItem(item.raw)" size="small" icon="mdi-delete">
+          <v-btn @click="deleteItem(item.raw.id, item.raw.symbol)" size="small" icon="mdi-delete">
           </v-btn>
         </template>
         <template v-slot:item.profitLoss="{ item }">
@@ -351,6 +382,9 @@ export default {
     return {
       stockOptions: "",
       tab: null,
+      selectedItemId: '',
+      selectedItemSymbol: '',
+      dialogDelete: false,
       holdings: [],
       loading: false,
       errorDialog: false,
@@ -427,6 +461,32 @@ export default {
     triggerLoading() {
       this.loadingOnClick = true;
     },
+    deleteItem(id, symbol) {
+      this.selectedItemId = id;
+      this.selectedItemSymbol = symbol;
+      this.dialogDelete = true;
+    },
+    confirmDelete() {
+      store.deleteHoldings(this.selectedItemId, userStore.getToken).then(() => {
+        this.isError = false;
+        this.errorDialog = true;
+        this.messages = 'Successfully deleted holding'
+        this.loading = false
+        setTimeout(() => {
+          this.errorDialog = false
+        }, 3000) 
+    })
+      .catch(() => {
+        this.isError = true;
+        this.errorDialog = true;
+        this.messages = 'Failed to delete holding'
+        this.loading = false
+        setTimeout(() => {
+          this.errorDialog = false
+        }, 3000) 
+      })
+      this.dialogDelete = false;
+    },  
     clearFields(type) {
       if (type === "new-account") {
         this.accountName = "";
@@ -478,6 +538,8 @@ export default {
     getholdings() {
       const holdings = store.getHoldings.map(x => {
         return {
+          id: x.id,
+          totalDividend: x.totalDividend,
           symbol: x.symbol,
           buyPrice: x.buyPrice,
           sellPrice: x.sellPrice,
@@ -520,14 +582,8 @@ export default {
       this.holdings = store.getHoldings;
       this.fetchLoading = true;
     }).catch(() => {
-        this.isError = true;
-        this.errorDialog = true;
-        this.messages = 'Invalid Token'
-      setTimeout(() => {
-        this.errorDialog = false
         localStorage.clear();
         this.$router.push('/register');
-      }, 3000)
     })
   },
   created() {

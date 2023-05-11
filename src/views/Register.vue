@@ -256,7 +256,7 @@ export default {
       }
       this.loadingLogin = false
       localStorage.setItem('token', res.data.data.sessionToken)
-      this.$router.push('/dashboard')
+      this.$router.push({name: 'dashboard'})
     },
     async sendOTP() {
       this.isErrorLogin = false;

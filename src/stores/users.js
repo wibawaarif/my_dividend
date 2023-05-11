@@ -81,6 +81,24 @@ export const useUserStore = defineStore("users", {
         return error;
       }
     },
+    async logout() {
+      try {
+          await axios.post(
+          USER_URL,
+          {
+            action: "logout",
+            token: this.state.token
+          },
+          {
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+          }
+        );
+      } catch (error) {
+        return error;
+      }
+    },
   },
   persist: {
     storage: sessionStorage,

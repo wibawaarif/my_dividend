@@ -104,6 +104,8 @@
 </template>
 
 <script>
+import { useUserStore } from "../stores/users";
+const userStore = useUserStore();
 export default {
   props: {
     type: String,
@@ -115,6 +117,7 @@ export default {
   },
   methods: {
     logout() {
+      userStore.logout();
       localStorage.clear();
       this.$router.push({
         name: 'home'
