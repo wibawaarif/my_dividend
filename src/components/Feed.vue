@@ -480,7 +480,7 @@ export default {
               },
             },
             xaxis: {
-              categories: [],
+              categories: ['2021', '2022', '2023', '2024'],
             },
             legend: {
               position: 'right',
@@ -488,19 +488,7 @@ export default {
             },
             colors: ['#0B0D0F', '#9371F0', '#31CFF3', '#4052EC', '#1D267D', '#5C469C', '#FFD95A', '#C07F00', '#19A7CE', '#088395', '#00FFCA', '#009FBD', '#FEFF86', '#FFB4B4', '#245953']
       },
-      series: [{
-            name: 'PRODUCT A',
-            data: [44, 55, 41, 67, 22, 43]
-          }, {
-            name: 'PRODUCT B',
-            data: [13, 23, 20, 8, 13, 27]
-          }, {
-            name: 'PRODUCT C',
-            data: [11, 17, 15, 15, 21, 14]
-          }, {
-            name: 'PRODUCT D',
-            data: [21, 7, 25, 13, 22, 8]
-          }],
+      series: [],
       addHoldingDialog: false,
       addAccountDialog: false,
       accountName: "",
@@ -675,6 +663,80 @@ export default {
       this.stockOptions = store.getStocks;
     });
     store.fetchHoldings(userStore.getToken).then(() => {
+      const data = {
+          2021: {
+            amount: 5000,
+            amountBySymbol: {
+              HCLTECH: 5000,
+              ASHOKLEY: 888
+            },
+          },
+          2022: {
+            amount: 24700,
+            amountBySymbol: {
+              HCLTECH: 24000,
+              ASHOKLEY: 100,
+              WIPRO: 600,
+            },
+          },
+            2023: {
+            amount: 24700,
+            amountBySymbol: {
+              AHOKL: 2512,
+              WIPRO: 102,
+            },
+          },
+              2024: {
+            amount: 24700,
+            amountBySymbol: {
+              ASHOKLEY: 999,
+            },
+          },
+        };
+
+        const toArray = Object.entries(data);
+        const result = [];
+
+        for (let i = 0; i < toArray.length; i++) {
+          for (let [a, s] of Object.entries(toArray[i][1].amountBySymbol)) {
+            result.push({
+              name: a,
+              data: [s],
+              year: [toArray[i][0]]
+            });
+          }
+        }
+
+        const years = Object.keys(data)
+
+        const uniqueKeys = {};
+
+        for (let i = 0; i < result.length; i++) {
+          const currentObj = result[i];
+          
+          if (uniqueKeys[currentObj.name]) {
+            uniqueKeys[currentObj.name].data.push(...currentObj.data);
+            uniqueKeys[currentObj.name].year.push(...currentObj.year);
+
+            result.splice(i,1);
+            i--;
+            continue;
+          }
+
+          uniqueKeys[currentObj.name] = currentObj;
+        }
+
+        result.map((item,) => {
+            for(let i of years) {
+                if (!item.year.includes(i)) {
+                    item.year.splice(years.indexOf(i), 0, null)
+                }
+            }
+            delete item["year"]
+        })
+      
+      this.series = result;
+      console.log(this.series)
       this.holdings = store.getHoldings;
       console.log(this.holdings);
       this.fetchLoading = true;
