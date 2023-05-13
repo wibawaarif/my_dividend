@@ -352,21 +352,72 @@
   </div>
     </v-card>
 
-    <v-card class="my-10 mx-auto">
+    <v-card v-if="fetchLoading" class="my-10 mx-auto">
       <div class="py-4 ml-5">
-        <span class="my-10 font-weight-medium">Expected Dividends</span>
+        <span class="my-10 font-weight-medium">Overall Dividend Growth</span>
       </div>
 
       <v-divider></v-divider>
       <div>
         <apexchart
-          width="500"
+          width="700"
           type="bar"
           :options="options"
           :series="series"
         ></apexchart>
       </div>
     </v-card>
+      <div class="d-flex justify-center" v-else>
+       <div style="width: 700px;" class="q-pa-md">
+    <q-markup-table style="overflow: hidden;">
+      <thead>
+        <tr>
+          <th class="text-left">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+          <th class="text-right">
+            <q-skeleton animation="blink" type="text" />
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="n in 5" :key="n">
+          <td class="text-left">
+            <q-skeleton animation="blink" type="text" width="85px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="50px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="35px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="65px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="25px" />
+          </td>
+          <td class="text-right">
+            <q-skeleton animation="blink" type="text" width="85px" />
+          </td>
+        </tr>
+      </tbody>
+    </q-markup-table>
+  </div>
+</div>
   </v-app>
 </template>
 
@@ -393,18 +444,63 @@ export default {
       messages:"",
       options: {
         chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-        },
+              type: 'bar',
+              height: 350,
+              stacked: true,
+              toolbar: {
+                show: true
+              },
+              zoom: {
+                enabled: true
+              }
+            },
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                legend: {
+                  position: 'bottom',
+                  offsetX: -10,
+                  offsetY: 0
+                }
+              }
+            }],
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                borderRadius: 10,
+                dataLabels: {
+                  total: {
+                    enabled: true,
+                    style: {
+                      fontSize: '13px',
+                      fontWeight: 900
+                    }
+                  }
+                }
+              },
+            },
+            xaxis: {
+              categories: [],
+            },
+            legend: {
+              position: 'right',
+              offsetY: 40
+            },
+            colors: ['#0B0D0F', '#9371F0', '#31CFF3', '#4052EC', '#1D267D', '#5C469C', '#FFD95A', '#C07F00', '#19A7CE', '#088395', '#00FFCA', '#009FBD', '#FEFF86', '#FFB4B4', '#245953']
       },
-      series: [
-        {
-          name: "series-1",
-          data: [30, 40, 45, 50, 49, 60, 70, 91],
-        },
-      ],
+      series: [{
+            name: 'PRODUCT A',
+            data: [44, 55, 41, 67, 22, 43]
+          }, {
+            name: 'PRODUCT B',
+            data: [13, 23, 20, 8, 13, 27]
+          }, {
+            name: 'PRODUCT C',
+            data: [11, 17, 15, 15, 21, 14]
+          }, {
+            name: 'PRODUCT D',
+            data: [21, 7, 25, 13, 22, 8]
+          }],
       addHoldingDialog: false,
       addAccountDialog: false,
       accountName: "",
@@ -580,6 +676,7 @@ export default {
     });
     store.fetchHoldings(userStore.getToken).then(() => {
       this.holdings = store.getHoldings;
+      console.log(this.holdings);
       this.fetchLoading = true;
     }).catch(() => {
         localStorage.clear();
