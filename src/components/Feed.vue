@@ -663,6 +663,7 @@ export default {
       this.stockOptions = store.getStocks;
     });
     store.fetchHoldings(userStore.getToken).then(() => {
+      // using dummy data
       const data = {
           2021: {
             amount: 5000,
@@ -736,9 +737,8 @@ export default {
         })
       
       this.series = result;
-      console.log(this.series)
+
       this.holdings = store.getHoldings;
-      console.log(this.holdings);
       this.fetchLoading = true;
     }).catch(() => {
         localStorage.clear();

@@ -182,7 +182,7 @@ export default {
         return
       }
       this.loading = false
-      console.log(res);
+
       this.QRValue = res.data.data.otpVerifyLink
       this.steps = res.data.data.veritySteps
       this.form.otp = res.data.data.otp
