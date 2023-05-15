@@ -527,6 +527,7 @@ export default {
         { title: "Buy Price", align: "end", key: "buyPrice" },
         { title: "Sell Price", align: "end", key: "sellPrice" },
         { title: "Profit/Loss (%)", align: "end", key: "profitLoss" },
+        { title: "Total Dividend", align: "end", key: "totalDividend" },
         { title: "Buy Date", align: "end", key: "buyDate" },
         { title: "Sell Date", align: "end", key: "sellDate" },
         { title: "Actions", align: "end", key: "actions", sortable: false },
@@ -630,9 +631,11 @@ export default {
           buyDate: new Date(x.buyDate).toLocaleDateString(),
           sellDate: new Date(x.sellDate).toLocaleDateString(),
           quantity: x.quantity, 
-          profitLoss: `${Math.round((((x.sellPrice - x.buyPrice) / x.buyPrice * 100) + Number.EPSILON) * 100)  / 100}`
+          profitLoss: `${Math.round((((x.sellPrice - x.buyPrice) / x.buyPrice * 100) + Number.EPSILON) * 100)  / 100}`,
         }
       })
+      console.log(holdings);
+      console.log(store.getHoldings);
       return holdings
     },
     loadingStockSymbol() {
