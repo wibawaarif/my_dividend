@@ -211,7 +211,7 @@
       </v-row>
     </div>
 
-    <div class="d-flex justify-start">
+    <!-- <div class="d-flex justify-start">
       <v-tabs v-model="tab" color="indigo-accent-2" align-tabs="center">
         <v-tab class="mr-2">Summary</v-tab>
         <v-tab class="mr-2">Arif</v-tab>
@@ -219,7 +219,7 @@
           >+ Add Account</v-tab
         >
       </v-tabs>
-    </div>
+    </div> -->
     <v-divider></v-divider>
 
     <v-sheet
