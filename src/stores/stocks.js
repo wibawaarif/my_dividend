@@ -61,6 +61,7 @@ export const useStockStore = defineStore("stock",{
           throw new Error('Invalid Token')
         }
         this.holdings = data.data.data.holdings
+        localStorage.setItem('holdings', JSON.stringify(this.holdings))
         return data
 
     },

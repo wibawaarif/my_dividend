@@ -611,9 +611,16 @@ export default {
       this.addHoldingDialog = false;
       this.errorDialog = true;
       this.messages = "Holdings saved successfully"
-      setTimeout(() => {
+      store.fetchHoldings(userStore.getToken).then(() => {
+        this.holdings = store.getHoldings;
+        this.fetchLoading = true;
+        setTimeout(() => {
           this.errorDialog = false
         }, 3000)
+        }).catch(() => {
+          localStorage.clear();
+          this.$router.push('/register');
+        })
     },
   },
   computed: {
@@ -665,9 +672,22 @@ export default {
     store.fetchStocks().then(() => {
       this.stockOptions = store.getStocks;
     });
-    store.fetchHoldings(userStore.getToken).then(() => {
-      // using dummy data
-      const data = {
+    if (!localStorage.getItem('holdings')) {
+      store.fetchHoldings(userStore.getToken).then(() => {
+
+      this.holdings = store.getHoldings;
+      this.fetchLoading = true;
+    }).catch(() => {
+        localStorage.clear();
+        this.$router.push('/register');
+    })
+    } else {
+      this.holdings = localStorage.getItem('holdings');
+      this.fetchLoading = true;
+    }
+
+     // using dummy data
+     const data = {
           2021: {
             amount: 5000,
             amountBySymbol: {
@@ -740,13 +760,6 @@ export default {
         })
       
       this.series = result;
-
-      this.holdings = store.getHoldings;
-      this.fetchLoading = true;
-    }).catch(() => {
-        localStorage.clear();
-        this.$router.push('/register');
-    })
   },
   created() {
     document.title = "Dashboard | MyDividend";
