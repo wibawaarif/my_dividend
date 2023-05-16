@@ -641,8 +641,6 @@ export default {
           profitLoss: `${Math.round((((x.sellPrice - x.buyPrice) / x.buyPrice * 100) + Number.EPSILON) * 100)  / 100}`,
         }
       })
-      console.log(holdings);
-      console.log(store.getHoldings);
       return holdings
     },
     loadingStockSymbol() {
