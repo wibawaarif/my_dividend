@@ -86,6 +86,7 @@
                   <span class="text-red font-weight-bold">*</span></span
                 >
                 <VueDatePicker
+                  :clearable="false"
                   :enable-time-picker="false"
                   class="mt-2"
                   input-class-name="dp-custom-input"
@@ -97,6 +98,7 @@
               <v-col class="py-1" cols="12">
                 <span>Sell Date</span>
                 <VueDatePicker
+                :clearable="false"
                   :enable-time-picker="false"
                   class="mt-2"
                   input-class-name="dp-custom-input"
@@ -115,8 +117,7 @@
               </v-col>
               <v-col class="py-1" cols="12">
                 <span
-                  >Sell Price
-                  <span class="text-red font-weight-bold">*</span></span
+                  >Sell Price</span
                 >
                 <q-input class="mt-2" outlined color="indigo" type="number" v-model="form.sellPrice" />
               </v-col>
@@ -139,7 +140,7 @@
             @click="addStock()"
             class="py-6 d-flex align-center mr-6 mb-2"
           >
-            <span>+ Add Holding</span>
+            <span>Save</span>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -659,7 +660,11 @@ export default {
         return true;
       }
 
-      if (this.quantity === "") {
+      if (this.form.quantity === "") {
+        return true;
+      }
+
+      if (this.form.buyPrice === "") {
         return true;
       }
 
