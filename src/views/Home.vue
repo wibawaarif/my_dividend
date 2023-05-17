@@ -6,8 +6,6 @@
     <v-row class="mt-16 mb-16">
       <v-col style="height: 560px;" class="d-flex mt-2 flex-column justify-between">
 
-        <span style="color: rgba(13, 37, 53, 0.7); font-weight: 600; font-size: 24px;">Welcome to MyDividend.com,</span>
-
         <span style="color: #377DFF; font-size: 64px; font-weight: 800; font-family: 'Jost', sans-serif;">Grow Your<br/> Wealth Through Smart Investments</span>
 
         <span style="color: #7E8E99; font-weight: 400; font-size: 20px;">Invest in your future with MyDividend - the ultimate resource for dividend investors.</span>
@@ -21,10 +19,10 @@
             size="x-large"
             class="py-8 d-flex align-center mr-6 mb-2"
           >
-            <span style="font-weight: 700;">Get Started ></span>
+            <span style="font-weight: 700;">Get Started For Free</span>
           </v-btn>
 
-          <v-btn
+          <!-- <v-btn
             @click="scrollPage"
             color="blue"
             variant="outlined"
@@ -32,7 +30,7 @@
             class="py-8 d-flex align-center mr-6 mb-2"
           >
             <span style="font-weight: 700;">Stock Screener</span>
-          </v-btn>
+          </v-btn> -->
 
         </div>
 
@@ -47,7 +45,7 @@
 
     </v-row>
 
-    <v-divider style="margin-top: 7rem;" />
+    <v-divider style="margin-top: 7rem; visibility: hidden;" />
 
     <div style="height: 100vh;" class="text-center">
 
@@ -57,9 +55,9 @@
 
       <span style="color: #64FCD9; font-size: 48px; font-weight: 600;">Stock Screener</span>
 
-      <q-select fill-input input-debounce="0" :loading="loadingOnClick && loadingStockSymbol" @update:model-value="selectedStockDetail" @focus="testing" use-input standout class="mt-8" outlined bottom-slots v-model="selectedStock" :options="stockOptions" @filter="filterFn">
+      <q-select placeholder="Search for a company" fill-input input-debounce="0" :loading="loadingOnClick && loadingStockSymbol" @update:model-value="selectedStockDetail" @focus="testing" use-input standout class="mt-8" outlined bottom-slots v-model="selectedStock" :options="stockOptions" @filter="filterFn">
 
-        <template v-slot:append>
+        <template v-slot:prepend>
           <q-icon name="search" @click.stop.prevent />
         </template>
       </q-select>
