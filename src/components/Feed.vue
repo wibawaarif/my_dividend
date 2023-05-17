@@ -635,8 +635,8 @@ export default {
           symbol: x.symbol,
           buyPrice: x.buyPrice,
           sellPrice: x.sellPrice,
-          buyDate: new Date(x.buyDate).toLocaleDateString(),
-          sellDate: new Date(x.sellDate).toLocaleDateString(),
+          buyDate: new Date(x.buyDate).toJSON().slice(0,10).split('-').reverse().join('/'),
+          sellDate: new Date(x.sellDate).toJSON().slice(0,10).split('-').reverse().join('/'),
           quantity: x.quantity, 
           profitLoss: `${Math.round((((x.sellPrice - x.buyPrice) / x.buyPrice * 100) + Number.EPSILON) * 100)  / 100}`,
         }
