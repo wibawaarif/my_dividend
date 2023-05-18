@@ -34,7 +34,9 @@
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "sass": "^1.60.0",
+    "tippy.js": "^6.3.7",
     "vite": "^3.1.9",
-    "vite-plugin-vuetify": "^1.0.0-alpha.12"
+    "vite-plugin-vuetify": "^1.0.0-alpha.12",
+    "vue3-calendar-heatmap": "^2.0.5"
   }
 }
