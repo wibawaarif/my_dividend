@@ -141,7 +141,7 @@ a:hover {
   text-decoration: underline;
 }
 
-.v-app-bar {
+/* .v-app-bar {
   border-bottom: 1px solid rgba(41, 61, 77, 0.3);
-}
+} */
 </style>
