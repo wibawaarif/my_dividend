@@ -301,6 +301,9 @@
         <template v-slot:item.profitLoss="{ item }">
           <span :class="item.raw.profitLoss < 0 ? 'text-red' : 'text-green'">{{ item.raw.profitLoss }}</span>
         </template>
+        <template v-slot:item.totalDividend="{ item }">
+          <span class="text-green">{{ item.raw.totalDividend % 1 !== 0 ? Math.round(item.raw.totalDividend * 100) / 100 : item.raw.totalDividend }}</span>
+        </template>
       </v-data-table>
       <div v-else class="q-pa-md">
     <q-markup-table>
