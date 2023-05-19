@@ -75,6 +75,9 @@ export const useStockStore = defineStore("stock",{
               "Content-Type": "text/plain;charset=utf-8",
             },
         })
+        if (data.data.errMessage === 'Invalid auth token') {
+          return data
+        }
         return data
         }
         catch (error) {

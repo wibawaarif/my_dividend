@@ -606,6 +606,10 @@ export default {
         this.loading = false
         setTimeout(() => {
           this.errorDialog = false
+          if (res.data.errMessage === 'Invalid auth token') {
+        localStorage.clear();
+        this.$router.push('/');
+      }
         }, 3000)
         return
       }
