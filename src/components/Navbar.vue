@@ -18,7 +18,7 @@
       </b-btn>
       <v-spacer></v-spacer>
 
-      <div v-if="drawer" @click="home" class="d-none d-sm-flex align-center">
+      <div v-if="type === 'dashboard'" @click="home" class="d-none d-sm-flex align-center">
         <router-link class="mr-8" to="/dashboard" active-class="active"
           >Dashboard</router-link
         >
@@ -27,7 +27,7 @@
         >
       </div>
 
-      <div v-if="drawer">
+      <div v-if="type === 'dashboard'">
         <v-menu transition="slide-y-transition">
           <template v-slot:activator="{ props }">
             <div class="d-none d-sm-flex align-center">
@@ -52,7 +52,7 @@
         </v-menu>
       </div>
 
-      <div v-if="!drawer" class="d-none d-sm-flex justify-center align-center">
+      <div v-if="type === 'homepage'" class="d-none d-sm-flex justify-center align-center">
         <router-link class="mr-8" to="/" active-class="active"
           >Home</router-link
         >
