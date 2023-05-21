@@ -1,6 +1,6 @@
 <template>
   <v-app style="height: 6rem;">
-    <v-app-bar flat style="z-index: 0; position: relative; padding-left: 100px; padding-right: 100px;" class="py-2">
+    <v-app-bar id="navbar-wrapper" flat style="z-index: 0; position: relative;" class="py-2">
       <v-app-bar-nav-icon
         @click="drawer = true"
         class="d-flex d-sm-none"
@@ -10,14 +10,15 @@
         v-ripple="false"
         variant="plain"
         style="cursor: pointer"
-        class="d-inline-flex align-center d-none d-xs-flex ml-lg-0 ml-14"
+        id="brand-wrapper"
+        class="d-inline-flex align-center d-none d-xs-flex"
       >
         <v-img src="../assets/brand-logo.svg" width="75" height="45"></v-img>
         <span class="font-weight-medium text-h5">MyDividend</span>
       </b-btn>
       <v-spacer></v-spacer>
 
-      <div v-if="type === 'dashboard'" @click="home" class="d-none d-sm-flex align-center">
+      <div v-if="drawer" @click="home" class="d-none d-sm-flex align-center">
         <router-link class="mr-8" to="/dashboard" active-class="active"
           >Dashboard</router-link
         >
@@ -26,7 +27,7 @@
         >
       </div>
 
-      <div v-if="type === 'dashboard'">
+      <div v-if="drawer">
         <v-menu transition="slide-y-transition">
           <template v-slot:activator="{ props }">
             <div class="d-none d-sm-flex align-center">
@@ -51,7 +52,7 @@
         </v-menu>
       </div>
 
-      <div v-if="type === 'homepage'" class="d-none d-sm-flex justify-center align-center">
+      <div v-if="!drawer" class="d-none d-sm-flex justify-center align-center">
         <router-link class="mr-8" to="/" active-class="active"
           >Home</router-link
         >
@@ -79,14 +80,14 @@
       v-model="drawer"
       absolute
       temporary
-      v-if="type === 'dashboard'"
+      v-if="drawer"
     >
-      <div class="d-flex align-center justify-center py-6">
+      <!-- <div class="d-flex align-center justify-center py-6">
         <v-btn icon>
           <v-icon>mdi-account-outline</v-icon>
         </v-btn>
         <span class="ml-4">Arif Wibawa</span>
-      </div>
+      </div> -->
       <v-divider></v-divider>
       <div class="d-flex flex-column px-3 mt-6">
         <router-link class="mr-8 mb-2" to="/dashboard" active-class="active"
@@ -128,6 +129,24 @@ export default {
 </script>
 
 <style scoped>
+
+@media (min-width: 600px) {
+  #navbar-wrapper {
+    padding-left: 100px;
+    padding-right : 100px;
+  }
+}
+
+/* Styles for screens less than 600px */
+@media (max-width: 599px) {
+  #navbar-wrapper {
+    padding-left: 0;
+    padding-right : 0;
+  }
+  #brand-wrapper {
+    margin-left: 25px !important;
+  }
+}
 .active {
   color: #377dff;
 }

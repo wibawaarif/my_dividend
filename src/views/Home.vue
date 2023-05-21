@@ -2,15 +2,17 @@
   <v-container class="px-0 py-0 h-screen" fluid>
   <Navbar type="homepage" />
 
-  <v-app style="padding-left: 100px; padding-right: 100px;">
-    <v-row class="mt-16 mb-16">
-      <v-col style="height: 560px;" class="d-flex mt-2 flex-column justify-between">
+  <v-app id="home-wrapper">
+    <v-row class="mt-lg-16 mt-0 mb-0 mb-lg-16">
+      <v-col id="body-wrapper" class="d-flex mt-2 flex-column">
 
-        <span style="color: #377DFF; font-size: 64px; font-weight: 800; font-family: 'Jost', sans-serif;">Grow Your<br/> Wealth Through Smart Investments</span>
-
-        <span style="color: #7E8E99; font-weight: 400; font-size: 20px;">Invest in your future with MyDividend - the ultimate resource for dividend investors.</span>
-
-        <div style="width: 350px;" class="d-flex mt-4 justify-between">
+        <div id="branding-h1-wrapper">
+          <span id="branding-h1" style="color: #377DFF; font-weight: 800; font-family: 'Jost', sans-serif;">Grow Your<br/> Wealth Through Smart Investments</span>
+        </div>
+        <div id="branding-h2-wrapper">
+          <span id="branding-h2" style="color: #7E8E99; font-weight: 400;">Invest in your future with MyDividend - the ultimate resource for dividend investors.</span>
+      </div>
+        <div id="primary-btn-wrapper" style="width: 350px;" class="d-flex mt-4">
 
           <v-btn
             style="background-color: #377dff; color: white"
@@ -36,7 +38,7 @@
 
       </v-col>
 
-      <v-col class="d-flex justify-end">
+      <v-col id="image-wrapper" class="d-flex justify-end">
         <div>
           <v-img :width="620" src="../assets/hero.png" ></v-img>
         </div>
@@ -45,13 +47,13 @@
 
     </v-row>
 
-    <v-divider style="margin-top: 7rem; visibility: hidden;" />
+    <v-divider id="primary-divider" style="margin-top: 7rem; visibility: hidden;" />
 
     <div style="height: 100vh;" class="text-center">
 
-    <v-row class="d-flex justify-center mt-6">
+    <v-row id="body-2-wrapper" class="d-flex justify-center mt-6">
 
-      <div class="text-center w-50 mt-4">
+      <div id="body-3-wrapper" class="text-center mt-4">
 
       <span style="color: #64FCD9; font-size: 48px; font-weight: 600;">Stock Screener</span>
 
@@ -66,8 +68,8 @@
 
     </v-row>
 
-    <div class="my-12">
-    <span style="font-size: 36px; color: rgba(13, 37, 53, 0.7);">A Simple Tool  to See All Your <br/>
+    <div id="body-4-wrapper" class="my-12">
+    <span id="branding-h3" style="color: rgba(13, 37, 53, 0.7);">A Simple Tool  to See All Your <br/>
 Dividends in One Place</span>
 </div>
 
@@ -82,7 +84,7 @@ project future growth.</span>
         </v-col>
 
 
-        <v-col class="d-flex flex-column align-center">
+        <v-col id="body-5-wrapper" class="d-flex flex-column align-center">
           <div>
           <v-img class="mt-2" :width="220" src="../assets/hero-2.png" />
         </div>
@@ -161,4 +163,108 @@ project future growth.</span>
   }
 }
  </script>
+
+ <style>
+@media (min-width: 600px) {
+  #home-wrapper {
+    padding-left: 100px;
+    padding-right : 100px;
+  }
+
+  #branding-h1 {
+    font-size: 64px;
+  }
+
+  #body-wrapper {
+    justify-content: space-between;
+    height: 560px;
+  }
+
+  #branding-h2 {
+    font-size: 20px;
+  }
+
+  #primary-btn-wrapper {
+    justify-content: between;
+  }
+
+  #body-3-wrapper {
+    width: 399.2px;
+  }
+
+  #branding-h3 {
+    font-size: 36px;
+  }
+  
+}
+
+/* Styles for screens less than 600px */
+@media (max-width: 599px) {
+  #home-wrapper {
+    padding-left: 0;
+    padding-right : 0;
+  }
+
+  #body-wrapper {
+    padding-left: 32px;
+    padding-right: 32px;
+    margin-top: 0;
+    padding-top: 0;
+    height: 500px;
+  }
+
+  #branding-h1 {
+    font-size: 45px;
+    line-height: 60px;
+  }
+
+  #branding-h2 {
+    font-size: 15px;
+  }
+
+  #branding-h2-wrapper {
+    margin-top: 20px;
+    margin-left: 2px;
+  }
+
+  #primary-btn-wrapper {
+    justify-content: center;
+    height: 200px;
+    align-items: center;
+  }
+
+  #image-wrapper {
+    display: none !important;
+  }
+
+  #primary-divider {
+    display: none;
+  }
+
+  #body-2-wrapper {
+    padding-top: 5px;
+  }
+
+  #body-3-wrapper {
+    width: max-content;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  #body-4-wrapper {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  #branding-h3 {
+    font-size: 24px;
+  }
+
+  #body-5-wrapper {
+    padding-bottom: 50px;
+  }
+  
+}
+
+</style>
  
