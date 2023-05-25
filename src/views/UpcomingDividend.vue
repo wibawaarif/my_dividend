@@ -20,10 +20,13 @@
     <v-divider class="mt-3"></v-divider>
      
 
-    <v-card class="my-10 mx-auto">
-      <div class="d-flex justify-center" >
+    <v-card class="my-10 mx-auto d-flex justify-center">
+      <div style="width: 500px;" id="chart">
+        <apexchart type="heatmap" height="350" :options="chartOptions" :series="series"></apexchart>
+      </div>
+      <!-- <div class="d-flex justify-center" >
       <calendar-heatmap style="width: 1000px;" tooltip-unit="dividends" :end-date="endDate" :values="values"/>
-    </div>
+    </div> -->
     </v-card>
 
     <v-card>
@@ -149,14 +152,77 @@ export default {
           href: "upcoming-dividends",
         },
       ],
-      options: {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-        },
-      },
+      // options: {
+      //   chart: {
+      //     id: "vuechart-example",
+      //   },
+      //   xaxis: {
+      //     categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+      //   },
+      // },
+      series: [  {
+      name: "Mon",
+      data: this.generateData(9, {
+        min: -30,
+        max: 55
+      })
+    },
+    {
+      name: "Tue",
+      data: this.generateData(9, {
+        min: -30,
+        max: 55
+      })
+    },
+    {
+      name: "Wed",
+      data: this.generateData(9, {
+        min: -30,
+        max: 55
+      })
+    },
+    {
+      name: "Thu",
+      data: this.generateData(9, {
+        min: -30,
+        max: 55
+      })
+    },
+    {
+      name: "Fri",
+      data: this.generateData(9, {
+        min: 0,
+        max: 0
+      })
+    },
+    {
+      name: "Sat",
+      data: this.generateData(9, {
+        min: -30,
+        max: 55
+      })
+    },
+    {
+      name: "Sun",
+      data: this.generateData(9, {
+        min: -30,
+        max: 55
+      })
+    },
+  ],
+          chartOptions: {
+            chart: {
+              height: 350,
+              type: 'heatmap',
+            },
+            dataLabels: {
+              enabled: false
+            },
+            colors: ["#008FFB"],
+            title: {
+              text: 'HeatMap Chart (Single color)'
+            },
+          },
       headers: [
         {
           title: "Ticker",
@@ -168,12 +234,12 @@ export default {
         { title: "Record Date", align: "end", key: "recordDate" },
         { title: "Description", align: "end", key: "description", sortable: false },
       ],
-      series: [
-        {
-          name: "series-1",
-          data: [30, 220, 70, 120, 49, 460, 70, 30],
-        },
-      ],
+      // series: [
+      //   {
+      //     name: "series-1",
+      //     data: [30, 220, 70, 120, 49, 460, 70, 30],
+      //   },
+      // ],
     };
   },
   computed: {
@@ -191,6 +257,24 @@ export default {
       }]
       return value
     },
+  },
+  methods: {
+    generateData(count, yrange) {
+      var i = 0;
+      var series = [];
+      while (i < count) {
+        var x = (i + 1).toString();
+        var y =
+          Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+        series.push({
+          x: x,
+          y: y
+        });
+        i++;
+      }
+  return series;
+}
   },
   created() {
     document.title = "Upcoming Dividends | MyDividend";

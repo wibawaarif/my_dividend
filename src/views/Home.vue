@@ -1,5 +1,5 @@
 <template>
-  <v-container class="px-0 py-0 h-screen" fluid>
+  <v-container style="overflow-y: hidden;" class="px-0 py-0 h-screen" fluid>
   <Navbar type="homepage" />
 
   <v-app id="home-wrapper">
@@ -14,7 +14,14 @@
       </div>
         <div id="primary-btn-wrapper" style="width: 350px;" class="d-flex mt-4">
 
-          <v-btn
+          <q-select max-values="5"  @virtual-scroll="onScroll" style="width: 600px;"  rounded placeholder="Search markets here" fill-input input-debounce="0" :loading="loadingOnClick && loadingStockSymbol" @update:model-value="selectedStockDetail" @focus="testing" use-input standout class="mt-1" outlined bottom-slots v-model="selectedStock" :options="stockOptions" @filter="filterFn">
+
+<template v-slot:prepend>
+  <q-icon style="background-color: #2862FF; border-radius: 100%; padding: 7px" color="white" name="search" @click.stop.prevent />
+</template>
+</q-select>
+
+          <!-- <v-btn
             style="background-color: #377dff; color: white"
             :to="checkSession"
             elevation="8"
@@ -22,7 +29,7 @@
             class="py-8 d-flex align-center mr-6 mb-2"
           >
             <span style="font-weight: 700;">Get Started For Free</span>
-          </v-btn>
+          </v-btn> -->
 
           <!-- <v-btn
             @click="scrollPage"
@@ -49,7 +56,7 @@
 
     <v-divider id="primary-divider" style="margin-top: 7rem; visibility: hidden;" />
 
-    <div style="height: 100vh;" class="text-center">
+    <!-- <div style="height: 100vh;" class="text-center">
 
     <v-row id="body-2-wrapper" class="d-flex justify-center mt-6">
 
@@ -71,9 +78,9 @@
     <div id="body-4-wrapper" class="my-12">
     <span id="branding-h3" style="color: rgba(13, 37, 53, 0.7);">A Simple Tool  to See All Your <br/>
 Dividends in One Place</span>
-</div>
+</div> -->
 
-      <v-row>
+      <!-- <v-row>
 
         <v-col class="d-flex flex-column align-center">
           <v-img class="mt-2" :width="220" src="../assets/hero-1.png" />
@@ -92,9 +99,9 @@ project future growth.</span>
           <span style="font-size: 18px; color: #7E8E99;" class="mt-2">Effortlessly connect to thousands of<br/> banks and brokerage firms using Plaid.<br/> The easiest way to add, track, and<br /> analyze your dividends stocks.</span>
           
 </v-col>
-      </v-row>
+      </v-row> -->
 
-  </div>
+  <!-- </div> -->
 
   </v-app>
 

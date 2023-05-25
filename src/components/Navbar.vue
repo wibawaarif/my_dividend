@@ -59,16 +59,16 @@
         <router-link class="mr-8" to="/pricing" active-class="active"
           >Pricing</router-link
         >
-        <router-link class="mr-8" to="/dividend-calculator" active-class="active"
+        <!-- <router-link class="mr-8" to="/dividend-calculator" active-class="active"
           >Dividend Calculator</router-link
-        >
+        > -->
 
           <v-btn
             style="background-color: #377dff; color: white; text-decoration: none;"
             class="d-flex align-center py-5"
             to="/dashboard"
           >
-            <span style="text-decoration: none; text-transform: none;">Dashboard</span>
+            <span style="text-decoration: none; text-transform: none;">Get Started</span>
           </v-btn>
 
       </div>
@@ -94,10 +94,10 @@
           ><v-icon>mdi-home</v-icon
           ><span class="ml-4">Dashboard</span></router-link
         >
-        <router-link class="mr-8" to="/upcoming-dividends" active-class="active"
+        <!-- <router-link class="mr-8" to="/upcoming-dividends" active-class="active"
           ><v-icon>mdi-cash-multiple</v-icon
           ><span class="ml-4">Upcoming Dividends</span></router-link
-        >
+        > -->
       </div>
     </v-navigation-drawer>
     <!-- Navigation bar ends -->

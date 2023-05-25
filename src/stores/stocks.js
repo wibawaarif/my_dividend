@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 // Import axios to make HTTP requests
 import axios from "axios"
 
-const HOLDINGS_URL = "https://script.google.com/macros/s/AKfycby0s_ba3GYxEpTlO4_cYfGfPBAiNWjLEvaq_pdwCDC8QWZXK7RHc6rLZYIkL34OSZQf/exec";
+const HOLDINGS_URL = "https://script.google.com/macros/s/AKfycbz3IntRXsII5g1BJRp77-z4XYgW4jcC1RooctJqgZXRxGdrpL7_eR2mXPC5zs4OZg/exec";
 
 export const useStockStore = defineStore("stock",{
    state: () => ({
