@@ -33,7 +33,7 @@
             <div class="d-none d-sm-flex align-center">
             <v-btn icon="mdi-account-outline" v-bind="props">
             </v-btn>
-            <span>Arif Wibawa</span>
+            <span>{{ user }}</span>
           </div>
           </template>
           <v-list>
@@ -114,6 +114,7 @@ export default {
   data() {
     return {
       drawer: false,
+      user: '',
     };
   },
   methods: {
@@ -124,6 +125,10 @@ export default {
         name: 'home'
       })
     }
+  },
+  mounted() {
+    this.user = userStore.getUser
+
   }
 };
 </script>

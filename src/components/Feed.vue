@@ -689,6 +689,7 @@ export default {
       this.fetchLoading = true;
     }).catch(() => {
         localStorage.clear();
+        sessionStorage.clear();
         this.$router.push('/register');
     })
     } else {

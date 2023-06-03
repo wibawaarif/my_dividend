@@ -9,7 +9,8 @@ const USER_URL = "https://script.google.com/macros/s/AKfycbyT_QVUPdnjB4VnXDBhN95
 export const useUserStore = defineStore("users", {
   state: () => ({
     users: "",
-    token: ""
+    token: "",
+    membership: "",
   }),
   getters: {
     getUser(state) {
@@ -18,6 +19,9 @@ export const useUserStore = defineStore("users", {
     getToken(state) {
       return state.token;
     },
+    getMembership(state) {
+      return state.membership;
+    }
   },
   actions: {
     async registerUser(form) {
@@ -75,7 +79,9 @@ export const useUserStore = defineStore("users", {
             },
           }
         );
-        this.token = data.data.data.sessionToken
+        this.membership = data.data.data.membership;
+        this.users = data.data.data.userName;
+        this.token = data.data.data.sessionToken;
         return data;
       } catch (error) {
         return error;
